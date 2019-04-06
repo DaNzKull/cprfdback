@@ -8,91 +8,69 @@ using System.Globalization;
 using System.Timers;
 using System.Diagnostics;
 
-//SYSTEM.NUMERICS LIBRARY KELL
 
-///* 
-// * MPU-6050 is an inertial module that has a 16-bit ADC for data conversion. It generates 16-bit signed integer data.
-// * SAMPLING RATE 500Hz & 16bit-es felbontással digitalizáljuk
-//        - előszűrő "THIRD-ORDER BUTTERWORTH LOW PASS FILTER (CUTOFF 15HZ) magas frekvenciájú zajok elnyomására
-//        - RESAMPLING to 100Hz
-//        - PEAK DETECTOR (with 15mm treshold)ral elemezzük a CD-t (compression depth)
-//        - Visszajelzés kalkulálása rövid intervallumokon. Ha az intervallumok rövidek, akkor feltételezhetjük, hogy az összes kompresszió
-//        az analízis intervallumon belül nagyon hasonlóak.
-//        - Matematikailag azt jelenti, hogy a gyorsulás és a CD majdnem periódikus jelek, amelyeknek alapfrekvenciája a kompressziók átlagos frekvenciája
-//        - Ezt jelöljük fcc(Hz)-vel
-//        - Minden analízis intervallumon való periódikus megjelenésüket a(t)-vel jelöljük a gyorsulást és s(t)-vel a CD jelét.
-//        - Ezen periodikus reprezentációkat modellezhetjük a Fourier sorozatok decompoziciójának első N harmonikájának használatával.
-//        - Spektrális analízis hogy megbecsüljük az a(t) harmóniáját, amivel rekonstruálhatjuk s(t)-t
-//    *** LÉPÉSEK ***
-//        1. Hamming-ablak alkalmazása a gyorsulási jelre hogy kiválasszuk az analízis intervallumot.
-//        2. A 2048 pontos FFT  (zero padding) számítás.
-//        3. Első 3 harmonikust és azok alapfrekvenciáját megbecsüljük.
-//        4. Képlet használata az Sk és ¤k számítására, amelyeket s(t) rekonstruálására használjuk. 
-//        5. Ritmus és mélységet megkapjuk a rekonstruált s(t) ciklusból :  rate (min-1) = 60* fcc; depth(mm) = max{s(t)} - min{s(t)};
-//*/
 namespace CPRFeedbackER
 {
-    public partial class CPRFeedbackER : Form
-    {
+    public partial class CPRFeedbackER : Form   {
+        public static readonly int INITIAL_POSITION = 0;
+
         readonly SerialPortClass cprPort;
         Thread serialReaderthread;
+        PressDetector pressDetector = new PressDetector();
+        Stopwatch sw = new Stopwatch();
+        int value;
+        
+        // A lineráis poti értéktartománya pozitív (0 - 1023) között van
+        List<int> inputSignal = new List<int>();
 
-        // A lineráis poti értéktartománya pozitív (0 - 1000) között van
-        List<UInt16> inputSignal = new List<UInt16>();
-        List<String> raw_inputSignal = new List<string>();
-
-        private static System.Timers.Timer aTimer;
-
-        public CPRFeedbackER(SerialPortClass cprPort)
-        {
+        public CPRFeedbackER(SerialPortClass cprPort)  {
             InitializeComponent();
             this.cprPort = cprPort;
+            sw.Restart();
             btn_Stop.Enabled = false;
+        }
+
+        public int BpmCounter { get; set; }
+        public int CprCounter { get; set; }
+
+        private void saveToFile()  {
+            string fileName = "InputSignal_" + DateTime.Now.ToFileTimeUtc() + ".txt";
+            StreamWriter sr = new StreamWriter(fileName);
+
+            foreach ( var item in inputSignal ) {
+                sr.Write( item.ToString() + ";" );
+            }
+            sr.Close();
+        }
+
+        private void SerialReading()  {
+            var raw_data = cprPort.ReadLine();
+            
+            sw.Start();
+
+            while (cprPort.IsOpen || sw.Elapsed.TotalSeconds <= 60 ) {  // TODO: Countdownnál leáll 60mp után
+                //System.Threading.Thread.Sleep( 100 );
+
+                raw_data = cprPort.ReadLine();
+                raw_data = raw_data.Trim();
+
+                //textBox1.AppendText( raw_data + Environment.NewLine );
+                int.TryParse(raw_data, out value);
+
+                inputSignal.Add(value);
+                pressDetector.PeakDetector(ref inputSignal);
+                
+            }
+
             
         }
 
-        private void saveToFile()
-        {
-            string fileName = "InputSignal_" + DateTime.Now.ToFileTime() + ".txt";
-            using (StreamWriter sr = new StreamWriter(fileName))
-            {
-                foreach (var item in raw_inputSignal)
-                {
-                    sr.WriteLine(item);
-                }
-            }
-
-            System.IO.File.WriteAllLines(fileName, raw_inputSignal);
-        }
-
-        private void SerialReading() {
-            var data = cprPort.ReadLine();
-            var sw = new Stopwatch();
-
-            sw.Start();
-
-            while (cprPort.IsOpen || sw.Elapsed.TotalSeconds <= 60) // TODO: Countdownnál leáll 60mp után
-            {
-                data = cprPort.ReadLine();
-                data = data.Trim();
-
-                inputSignal.Add(UInt16.Parse(data));
-                raw_inputSignal.Add(data);rhgehe 
-
-                textBox1.AppendText(data + Environment.NewLine);
-                //Thread.Sleep(20);
-            }
-        }
-
-        private void btn_Start_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void btn_Start_Click(object sender, EventArgs e) {
+            try {
                 if (!cprPort.IsOpen)
                     cprPort.Open();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show("Hiba a porttal kapcsolatban!" + ex.Message, "Error!");
             }
 
@@ -102,34 +80,39 @@ namespace CPRFeedbackER
             btn_Stop.Enabled = true;
             btn_Start.Enabled = false;
         }
-        private void btn_Stop_Click(object sender, EventArgs e)
-        {
-            if (serialReaderthread.IsAlive)
-            {
+
+        private void btn_Stop_Click(object sender, EventArgs e) {
+            if (serialReaderthread.IsAlive) {
                 serialReaderthread.Abort();
 
                 textBox1.Clear();
-                textBox1.AppendText("Leállítva!");
+                textBox1.AppendText("Leállítva!" + Environment.NewLine );
+
+                textBox1.AppendText("G P: " +  pressDetector.goodPressCounter + Environment.NewLine );
+                //textBox1.AppendText("G R: " + pressDetector.goodReleaseCounter);
+
+                textBox1.AppendText("CPR count: " + pressDetector.cprCounter + Environment.NewLine);
 
                 btn_Start.Enabled = true;
             }
-            if (!serialReaderthread.IsAlive && (inputSignal.Count() != 0))
-            {
+
+            if (!serialReaderthread.IsAlive && (inputSignal.Count() != 0)) {
                 saveToFile();
                 btn_Stop.Enabled = false;
             }
         }
-        private void btn_Close_Click(object sender, EventArgs e)
-        {
+
+        private void btn_Close_Click(object sender, EventArgs e) {
             cprPort.Close();
-            serialReaderthread.Abort();
+            if (serialReaderthread.IsAlive)
+                serialReaderthread.Abort();
             Application.Exit();
         }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
 
+        private void timer1_Tick(object sender, EventArgs e) {
         }
 
-
+      
     }
+
 }
