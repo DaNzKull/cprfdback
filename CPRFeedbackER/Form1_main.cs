@@ -67,6 +67,10 @@ namespace CPRFeedbackER
                 MessageBox.Show("Előbb csatlakozni kell az eszközhöz!");
             
         }
-        
-    }
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+	}
 }

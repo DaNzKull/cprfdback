@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CPRFeedbackER
 {
+	/// <summary>
+	/// 
+	/// </summary>
     class AnalyzerClass
     {
     }
