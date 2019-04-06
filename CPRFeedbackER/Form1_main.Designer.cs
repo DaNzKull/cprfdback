@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1_main));
             this.btn_new = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_Connect = new System.Windows.Forms.Button();
@@ -45,7 +44,7 @@
             this.btn_new.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_new.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_new.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_new.Location = new System.Drawing.Point(51, 60);
+            this.btn_new.Location = new System.Drawing.Point(52, 42);
             this.btn_new.Name = "btn_new";
             this.btn_new.Size = new System.Drawing.Size(145, 130);
             this.btn_new.TabIndex = 0;
@@ -98,7 +97,7 @@
             this.btn_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_close.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_close.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_close.Location = new System.Drawing.Point(263, 60);
+            this.btn_close.Location = new System.Drawing.Point(263, 42);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(145, 130);
             this.btn_close.TabIndex = 6;
@@ -116,7 +115,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_new);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1_main";
             this.Opacity = 0.9D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
