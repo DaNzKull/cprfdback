@@ -9,7 +9,7 @@ namespace CPRFeedbackER
     class PressDetector
     {
         public static readonly int FULL_RELEASE_MIN = 0;
-        public static readonly int FULL_RELEASE_MAX = 100;
+        public static readonly int FULL_RELEASE_MAX = 50;
         public static readonly int MIN_PRESS = 200;
         public static readonly int MAX_PRESS = 1023;
         public static readonly int GOOD_PRESS_MIN = 800;
@@ -31,7 +31,7 @@ namespace CPRFeedbackER
         public void PeakDetector(ref List<int> input)
         {
             //TODO: Peak detection
-
+            
             int input_size = input.Count() - 1;
             if ( input_size <= 3 )
                 return;
@@ -55,7 +55,7 @@ namespace CPRFeedbackER
     
         private void IsFullRelease(int value)
         {
-            if (Enumerable.Range(0, 100).Contains(value))
+            if (Enumerable.Range(FULL_RELEASE_MIN, FULL_RELEASE_MAX).Contains(value))
                 goodReleaseCounter++;
         }
 
