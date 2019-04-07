@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace CPRFeedbackER
 {
-    public partial class Form1_main : Form
+    public partial class Main_Form : Form
     {
         SerialPortClass cprPort;
         Boolean comboBoxEmpty;
 
-        public Form1_main()
+        public Main_Form()
         {
             InitializeComponent();
             cprPort = new SerialPortClass();
