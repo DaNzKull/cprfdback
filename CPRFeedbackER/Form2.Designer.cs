@@ -38,7 +38,7 @@
             this.btn_Stop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Start = new System.Windows.Forms.Button();
-            this.progressBar_1 = new MaterialSkin.Controls.MaterialProgressBar();
+           // this.progressBar_1 = new MaterialSkin.Controls.MaterialProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.elementHost2 = new System.Windows.Forms.Integration.ElementHost();
@@ -132,16 +132,16 @@
             // 
             // progressBar_1
             // 
-            this.progressBar_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.progressBar_1.Depth = 0;
-            this.progressBar_1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.progressBar_1.ForeColor = System.Drawing.Color.Transparent;
-            this.progressBar_1.Location = new System.Drawing.Point(0, 0);
-            this.progressBar_1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.progressBar_1.Name = "progressBar_1";
-            this.progressBar_1.Size = new System.Drawing.Size(813, 5);
-            this.progressBar_1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar_1.TabIndex = 1;
+            //this.progressBar_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            //this.progressBar_1.Depth = 0;
+            //this.progressBar_1.Dock = System.Windows.Forms.DockStyle.Top;
+            //this.progressBar_1.ForeColor = System.Drawing.Color.Transparent;
+            //this.progressBar_1.Location = new System.Drawing.Point(0, 0);
+            //this.progressBar_1.MouseState = MaterialSkin.MouseState.HOVER;
+            //this.progressBar_1.Name = "progressBar_1";
+            //this.progressBar_1.Size = new System.Drawing.Size(813, 5);
+            //this.progressBar_1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            //this.progressBar_1.TabIndex = 1;
             // 
             // timer1
             // 
@@ -182,7 +182,7 @@
             this.ClientSize = new System.Drawing.Size(813, 537);
             this.Controls.Add(this.elementHost2);
             this.Controls.Add(this.chart1);
-            this.Controls.Add(this.progressBar_1);
+            //this.Controls.Add(this.progressBar_1);
             this.Controls.Add(this.panel1);
             this.Name = "CPRFeedbackER";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -197,7 +197,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private MaterialSkin.Controls.MaterialProgressBar progressBar_1;
+        //private MaterialSkin.Controls.MaterialProgressBar progressBar_1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.TextBox textBox1;
