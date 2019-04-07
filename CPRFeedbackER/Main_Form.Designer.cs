@@ -1,6 +1,6 @@
 ﻿namespace CPRFeedbackER
 {
-    partial class Form1_main
+    partial class Main_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -44,9 +44,9 @@
             this.btn_new.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_new.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_new.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_new.Location = new System.Drawing.Point(52, 42);
+            this.btn_new.Location = new System.Drawing.Point(17, 23);
             this.btn_new.Name = "btn_new";
-            this.btn_new.Size = new System.Drawing.Size(145, 130);
+            this.btn_new.Size = new System.Drawing.Size(224, 194);
             this.btn_new.TabIndex = 0;
             this.btn_new.Text = "Új mérés";
             this.btn_new.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.btn_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Connect.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Connect.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_Connect.Location = new System.Drawing.Point(279, 16);
+            this.btn_Connect.Location = new System.Drawing.Point(282, 16);
             this.btn_Connect.Name = "btn_Connect";
             this.btn_Connect.Size = new System.Drawing.Size(118, 34);
             this.btn_Connect.TabIndex = 6;
@@ -84,9 +84,9 @@
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBox1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(75, 26);
+            this.comboBox1.Location = new System.Drawing.Point(62, 26);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(110, 21);
+            this.comboBox1.Size = new System.Drawing.Size(131, 21);
             this.comboBox1.TabIndex = 5;
             // 
             // btn_close
@@ -97,11 +97,11 @@
             this.btn_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_close.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_close.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_close.Location = new System.Drawing.Point(263, 42);
+            this.btn_close.Location = new System.Drawing.Point(247, 23);
             this.btn_close.Name = "btn_close";
-            this.btn_close.Size = new System.Drawing.Size(145, 130);
+            this.btn_close.Size = new System.Drawing.Size(197, 194);
             this.btn_close.TabIndex = 6;
-            this.btn_close.Text = "Bezárás";
+            this.btn_close.Text = "Eredmények";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
@@ -110,7 +110,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(456, 292);
+            this.ClientSize = new System.Drawing.Size(456, 291);
             this.Controls.Add(this.btn_close);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_new);

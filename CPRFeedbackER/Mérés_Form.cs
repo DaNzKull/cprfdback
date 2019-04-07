@@ -17,7 +17,7 @@ namespace CPRFeedbackER
         readonly SerialPortClass cprPort;
         Thread serialReaderthread;
         PressDetector pressDetector = new PressDetector();
-        Stopwatch sw = new Stopwatch();
+        Timer timer = new Timer();
         int value;
         
         // A lineráis poti értéktartománya pozitív (0 - 1023) között van
@@ -26,12 +26,48 @@ namespace CPRFeedbackER
         public CPRFeedbackER(SerialPortClass cprPort)  {
             InitializeComponent();
             this.cprPort = cprPort;
-            sw.Restart();
+
+            timer.resetTimer();
+
             btn_Stop.Enabled = false;
+
+            // Gauge settings
+            gauge1.Uses360Mode = true;
+            gauge1.From = 0;
+            gauge1.To = 30;
+            gauge1.InnerRadius = 0;
+            gauge1.HighFontSize = 60;
+            gauge1.Value = 0;
+
+            // Progress bar
+            progressBar1.Maximum = 30;
+            progressBar1.Minimum = 0;
+            progressBar1.Value = 30;
+            progressBar1.Step = -1;
+
+        }
+        // UI elemeket más threadből nem lehet elérni enélkül
+        public void gaugeUpdater()
+        {
+            if (!InvokeRequired)
+                gauge1.Value = pressDetector.cprCounter;
+            else 
+                Invoke(new Action(gaugeUpdater));
         }
 
-        public int BpmCounter { get; set; }
-        public int CprCounter { get; set; }
+        public void progressBarUpdater()
+        {
+            if (!InvokeRequired)
+            {
+                if (timer.getElapsedSec() % 1 == 0)
+                progressBar1.PerformStep();
+            }
+                
+            else
+                Invoke(new Action(progressBarUpdater));
+        }
+        // end of updaters
+
 
         private void saveToFile()  {
             string fileName = "InputSignal_" + DateTime.Now.ToFileTimeUtc() + ".txt";
@@ -46,22 +82,25 @@ namespace CPRFeedbackER
         private void SerialReading()  {
             var raw_data = cprPort.ReadLine();
             
-            sw.Start();
+            timer.startTimer();
 
-            while (cprPort.IsOpen || sw.Elapsed.TotalSeconds <= 60 ) {  // TODO: Countdownnál leáll 60mp után
-                //System.Threading.Thread.Sleep( 100 );
-
+            while (cprPort.IsOpen || timer.getElapsedSec() <= 60 || pressDetector.cprCounter.Equals(30) ) {  // TODO: Countdownnál leáll 60mp után
+                
                 raw_data = cprPort.ReadLine();
                 raw_data = raw_data.Trim();
 
-                //textBox1.AppendText( raw_data + Environment.NewLine );
                 int.TryParse(raw_data, out value);
 
                 inputSignal.Add(value);
                 pressDetector.PeakDetector(ref inputSignal);
-                
+
+                gaugeUpdater();
+                progressBarUpdater();
             }
 
+            timer.stopTimer();
+            pressDetector.BpmCalculator(timer.getElapsedSec());
+            timer.resetTimer();
             
         }
 
@@ -76,7 +115,7 @@ namespace CPRFeedbackER
 
             serialReaderthread = new Thread(SerialReading);
             serialReaderthread.Start();
-            textBox1.Text = "Mérés elindítva";
+            
             btn_Stop.Enabled = true;
             btn_Start.Enabled = false;
         }
@@ -84,14 +123,6 @@ namespace CPRFeedbackER
         private void btn_Stop_Click(object sender, EventArgs e) {
             if (serialReaderthread.IsAlive) {
                 serialReaderthread.Abort();
-
-                textBox1.Clear();
-                textBox1.AppendText("Leállítva!" + Environment.NewLine );
-
-                textBox1.AppendText("G P: " +  pressDetector.goodPressCounter + Environment.NewLine );
-                //textBox1.AppendText("G R: " + pressDetector.goodReleaseCounter);
-
-                textBox1.AppendText("CPR count: " + pressDetector.cprCounter + Environment.NewLine);
 
                 btn_Start.Enabled = true;
             }
@@ -111,6 +142,9 @@ namespace CPRFeedbackER
 
         private void timer1_Tick(object sender, EventArgs e) {
         }
+
+
+
 
       
     }

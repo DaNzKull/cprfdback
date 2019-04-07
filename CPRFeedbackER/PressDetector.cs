@@ -31,19 +31,17 @@ namespace CPRFeedbackER
         public void PeakDetector(ref List<int> input)
         {
             //TODO: Peak detection
-            
-            int input_size = input.Count() - 1;
-            if ( input_size <= 3 )
+            int input_size = input.Count();
+            if ( input_size <= 4 )
                 return;
 
-            int currentInput = input.ElementAt(input_size);
-            int secondInput = input.ElementAt(input_size - 1);
-            int thirdInput = input.ElementAt(input_size - 2);
+            int lastValue = input.ElementAt(input_size - 1);
+            int prevValue = input.ElementAt(input_size - 2);
+            int prevPrevValue = input.ElementAt(input_size - 3);
 
-            //IsFullRelease( currentInput );
-            if (currentInput < secondInput && thirdInput <= secondInput && IsPressed(currentInput) )
+            if (lastValue < prevValue && prevValue > prevPrevValue && IsPressed(lastValue) && prevPrevValue < prevValue)
             {
-                IsGoodPress(currentInput);
+                IsGoodPress(prevValue);
                 cprCounter++;
             }
         }
