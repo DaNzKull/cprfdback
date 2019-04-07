@@ -91,8 +91,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyzerClass.cs" />
-    <Compile Include="DSPLib.cs" />
     <Compile Include="Eredmények.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,7 +115,6 @@
     <Compile Include="SerialPortClass.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Timer.cs" />
     <EmbeddedResource Include="Eredmények.resx">
       <DependentUpon>Eredmények.cs</DependentUpon>
     </EmbeddedResource>
