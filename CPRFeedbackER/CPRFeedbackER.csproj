@@ -91,7 +91,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyzerClass.cs" />
     <Compile Include="DSPLib.cs" />
     <Compile Include="Eredmények.cs">
       <SubType>Form</SubType>
