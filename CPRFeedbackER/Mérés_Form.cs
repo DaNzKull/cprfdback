@@ -19,12 +19,13 @@ namespace CPRFeedbackER
         PressDetector pressDetector = new PressDetector();
         Timer timer = new Timer();
         int value;
-        
+		DataBaseManager db;
         // A lineráis poti értéktartománya pozitív (0 - 1023) között van
         List<int> inputSignal = new List<int>();
 
         public CPRFeedbackER(SerialPortClass cprPort)  {
             InitializeComponent();
+			db = new DataBaseManager();
             this.cprPort = cprPort;
 
             timer.resetTimer();
@@ -131,6 +132,16 @@ namespace CPRFeedbackER
                 saveToFile();
                 btn_Stop.Enabled = false;
             }
+			var name = Prompt.ShowDialog("Név", "Mented az adatokat?");
+			if (!String.IsNullOrEmpty(name))
+			{
+				db.AddItem(new Measurment
+				{
+					Name = name,
+					Values = "" //Ide jön a mérés eredménye 
+				}); 
+			
+			}
         }
 
         private void btn_Close_Click(object sender, EventArgs e) {

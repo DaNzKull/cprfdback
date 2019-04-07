@@ -78,10 +78,38 @@ namespace CPRFeedbackER
 		public ObservableCollection<Measurment> GetAllItems()
 		{
 			var measurments = new ObservableCollection<Measurment>();
+			try
+			{
+				using (var m_dbConnection = new SqlConnection(sqlLiteConnectionString))
+				{
+					m_dbConnection.Open();
+					var sql = "SELECT Id,Values, Name FROM [dbo].[Measurments]";
+
+					SqlCommand command = new SqlCommand(sql, m_dbConnection);
+					var reader = command.ExecuteReader();
+					while (reader.Read())
+					{
+						measurments.Add(new Measurment
+						{
+							Id = (int)reader["Id"],
+							Values = reader["Values"].ToString(),
+							Name = reader["Name"].ToString(),
+						});
+					}
+				}
+			}
+			catch
+			{
+			}
+			return null;
+		}
+		public List<Measurment> GetItemById(int id)
+		{
+			var measurments = new List<Measurment>();
 			using (var m_dbConnection = new SqlConnection(sqlLiteConnectionString))
 			{
 				m_dbConnection.Open();
-				var sql = "SELECT Id,Values, Name FROM [dbo].[Measurments]";
+				var sql = String.Format("SELECT Id,Values, Name FROM [dbo].[Measurments] WHERE  Id={0}", id);
 
 				SqlCommand command = new SqlCommand(sql, m_dbConnection);
 				var reader = command.ExecuteReader();

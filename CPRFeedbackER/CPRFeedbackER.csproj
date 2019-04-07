@@ -11,6 +11,21 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,6 +86,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -92,13 +108,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyzerClass.cs" />
-    <Compile Include="DSPLib.cs" />
+    <Compile Include="DatabaseManager.cs" />
     <Compile Include="Eredmények.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Eredmények.Designer.cs">
       <DependentUpon>Eredmények.cs</DependentUpon>
     </Compile>
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Measurment.cs" />
     <Compile Include="Mérés_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +263,7 @@
     <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ValidationAssist.cs" />
     <Compile Include="PressDetector.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialPortClass.cs">
       <SubType>Component</SubType>
@@ -310,6 +329,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_data\Measurement.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_data\Measurement_log.ldf">
+      <DependentUpon>Measurement.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="packages\ControlzEx.3.0.2.4\lib\net40\ControlzEx.dll" />
     <Content Include="packages\ControlzEx.3.0.2.4\lib\net40\ControlzEx.pdb" />
     <Content Include="packages\ControlzEx.3.0.2.4\lib\net40\System.Windows.Interactivity.dll" />
@@ -1224,6 +1250,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".nuget\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

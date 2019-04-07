@@ -13,5 +13,6 @@ namespace CPRFeedbackER
 		bool DeleteItem(Measurment mes);
 		ObservableCollection<Measurment> GetAllItems();
 		bool UpdateItem(Measurment mes);
+		List<Measurment> GetItemById(int id);
 	}
 }
