@@ -46,7 +46,12 @@ namespace CPRFeedbackER
                 System.Threading.Thread.Sleep(500);
             }
         }
-        
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            cprPort.Close();
+            Application.Exit();
+        }
 
         private void btn_new_Click(object sender, EventArgs e)
         {
@@ -63,17 +68,9 @@ namespace CPRFeedbackER
             
         }
 
-        private void btn_results_Click( object sender, EventArgs e )
-        {
-            var newForm = new Eredmények();
-            newForm.Show();
-            //this.Hide();
-        }
-
-        private void btn_close_Click( object sender, EventArgs e )
-        {
-            cprPort.Close();
-            Application.Exit();
-        }
-    }
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+	}
 }

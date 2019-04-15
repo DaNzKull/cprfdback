@@ -12,9 +12,14 @@ namespace CPRFeedbackER
 {
     public partial class Eredmények : Form
     {
-        public Eredmények()
+		DataBaseManager db;
+
+		public Eredmények()
         {
             InitializeComponent();
+			db = new DataBaseManager();
+			listBox1.DataSource = db.GetAllItems();
+			listBox1.DisplayMember = "Name";
         }
 
         private void label2_Click( object sender, EventArgs e )
@@ -32,9 +37,27 @@ namespace CPRFeedbackER
 
         }
 
-        private void button1_Click( object sender, EventArgs e )
-        {
-            this.Close();
-        }
-    }
+		private void listBox1_DoubleClick(object sender, EventArgs e)
+		{
+			var items = db.GetItemById(((Measurment)listBox1.SelectedItem).Id);
+			if (items.Count() > 0)
+			{
+				var values = items[0].Values;
+				//itt meg lehet hívni egy grafikus elemet.
+			}
+		}
+
+		private void btn_Open_Click(object sender, EventArgs e)
+		{
+			if (listBox1.SelectedItems.Count > 0)
+			{
+				var items = db.GetItemById(((Measurment)listBox1.SelectedItem).Id);
+				if (items.Count() > 0)
+				{
+					var values = items[0].Values;
+					//itt meg lehet hívni egy grafikus elemet.
+				}
+			}
+		}
+	}
 }
