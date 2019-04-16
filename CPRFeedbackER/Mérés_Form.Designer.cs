@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.timer_lbl = new System.Windows.Forms.Label();
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.btn_Start = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.elementHost2 = new System.Windows.Forms.Integration.ElementHost();
             this.gauge1 = new LiveCharts.Wpf.Gauge();
             this.label2 = new System.Windows.Forms.Label();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.gauge2 = new LiveCharts.Wpf.Gauge();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,26 +47,26 @@
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.timer_lbl);
             this.panel1.Controls.Add(this.btn_Close);
             this.panel1.Controls.Add(this.btn_Stop);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btn_Start);
             this.panel1.ForeColor = System.Drawing.Color.Coral;
             this.panel1.Location = new System.Drawing.Point(0, -58);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(207, 543);
+            this.panel1.Size = new System.Drawing.Size(187, 543);
             this.panel1.TabIndex = 0;
             // 
-            // label3
+            // timer_lbl
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(54, 159);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 39);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Timer";
+            this.timer_lbl.AutoSize = true;
+            this.timer_lbl.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.timer_lbl.ForeColor = System.Drawing.Color.Coral;
+            this.timer_lbl.Location = new System.Drawing.Point(23, 180);
+            this.timer_lbl.Name = "timer_lbl";
+            this.timer_lbl.Size = new System.Drawing.Size(0, 26);
+            this.timer_lbl.TabIndex = 6;
+            this.timer_lbl.UseCompatibleTextRendering = true;
             // 
             // btn_Close
             // 
@@ -75,9 +75,9 @@
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Close.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Close.Location = new System.Drawing.Point(0, 423);
+            this.btn_Close.Location = new System.Drawing.Point(0, 411);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(208, 31);
+            this.btn_Close.Size = new System.Drawing.Size(187, 43);
             this.btn_Close.TabIndex = 5;
             this.btn_Close.Text = "Bezárás";
             this.btn_Close.UseVisualStyleBackColor = true;
@@ -92,21 +92,11 @@
             this.btn_Stop.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Stop.Location = new System.Drawing.Point(-1, 356);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(208, 49);
+            this.btn_Stop.Size = new System.Drawing.Size(188, 49);
             this.btn_Stop.TabIndex = 4;
             this.btn_Stop.Text = "Leállítás";
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(85, 167);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 31);
-            this.label1.TabIndex = 3;
             // 
             // btn_Start
             // 
@@ -115,13 +105,23 @@
             this.btn_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Start.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Start.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Start.Location = new System.Drawing.Point(0, 87);
+            this.btn_Start.Location = new System.Drawing.Point(0, 301);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(207, 49);
+            this.btn_Start.Size = new System.Drawing.Size(187, 49);
             this.btn_Start.TabIndex = 2;
             this.btn_Start.Text = "Indítás";
             this.btn_Start.UseVisualStyleBackColor = true;
             this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(343, -23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 31);
+            this.label1.TabIndex = 3;
             // 
             // elementHost2
             // 
@@ -137,7 +137,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(251, 67);
+            this.label2.Location = new System.Drawing.Point(250, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(230, 31);
             this.label2.TabIndex = 5;
@@ -152,14 +152,15 @@
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.gauge2;
             // 
-            // progressBar1
+            // label3
             // 
-            this.progressBar1.ForeColor = System.Drawing.Color.Maroon;
-            this.progressBar1.Location = new System.Drawing.Point(0, 0);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(845, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 7;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(568, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(237, 31);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Nyomás mélysége";
             // 
             // CPRFeedbackER
             // 
@@ -169,8 +170,9 @@
             this.BackColor = System.Drawing.Color.Azure;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(834, 420);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.elementHost1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.elementHost2);
             this.Controls.Add(this.panel1);
@@ -196,7 +198,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
         private LiveCharts.Wpf.Gauge gauge2;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label timer_lbl;
         private System.Windows.Forms.Label label3;
     }
 }

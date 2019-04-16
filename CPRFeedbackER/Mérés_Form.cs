@@ -7,102 +7,111 @@ using System.IO;
 using System.Globalization;
 using System.Timers;
 using System.Diagnostics;
+using System.Windows.Media;
 
-
-
-namespace CPRFeedbackER
-{
-    public partial class CPRFeedbackER : Form
-    {
-        public static readonly int INITIAL_POSITION = 0;
-        private DateTime startTime;
+namespace CPRFeedbackER { 
+    public partial class CPRFeedbackER : Form {
         readonly SerialPortClass cprPort;
         Thread serialReaderthread;
         PressDetector pressDetector = new PressDetector();
+
+        // Az Arduino ADC convertere miatt az analóg jelet 0-1023 közötti intekké alakítja, ez jön be
+        List<int> inputSignal = new List<int>();
         int value;
-        private static System.Timers.Timer aTimer;
 
-        List<int> inputSignal = new List<int>(); // A lineráis poti értéktartománya pozitív (0 - 1023) között van
+        DateTime startTime = new DateTime();
+        TimeSpan elapsedTime = new TimeSpan();
 
-        public CPRFeedbackER(SerialPortClass cprPort)
-        {
+        public CPRFeedbackER(SerialPortClass cprPort) {
             InitializeComponent();
             this.cprPort = cprPort;
             btn_Stop.Enabled = false;
 
-            // Timer settings
-            aTimer = new System.Timers.Timer(30000);
-            aTimer.Elapsed += TimesUp;
-            aTimer.AutoReset = false;
-
-            // Gauge settings
+            // Gauge 1 NYOMÁSOK SZÁMÁT MUTATJA
             gauge1.Uses360Mode = true;
             gauge1.From = 0;
-            gauge1.To = 30;
+            gauge1.To = 150;
             gauge1.InnerRadius = 0;
             gauge1.HighFontSize = 60;
             gauge1.Value = 0;
 
-            // Progress bar
-            progressBar1.Maximum = 30;
-            progressBar1.Minimum = 0;
-            progressBar1.Value = 30;
-            progressBar1.Step = -1;
+            // Gauge 2 AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
+            gauge2.FromColor = Colors.Green;
+            gauge2.ToColor = Colors.Red;
+            gauge2.Uses360Mode = true;
+            gauge2.HighFontSize = 50;
+            
+            gauge2.InnerRadius = 2;
+            gauge2.From = 0;
+            gauge2.To = 1023;
+            gauge2.AnimationsSpeed = (TimeSpan.FromTicks(0));
         }
 
-        // UI elemeket más threadből nem lehet elérni enélkül
-        public void gaugeUpdater()
-        {
-            if (!InvokeRequired)
+        // UI ELEMENT UPDATERS   // NEM LEHET ELÉRNI MÁSIK THREADBŐL ENÉLKÜL
+        public void gaugeUpdater() {
+            if (!InvokeRequired) {
                 gauge1.Value = pressDetector.cprCounter;
+                gauge2.Value = pressDetector.lastPressedValue;
+            }
             else
                 Invoke(new Action(gaugeUpdater));
         }
-
-        public void progressBarUpdater()
-        {
-            if (!InvokeRequired)
-            {
-                progressBar1.PerformStep();
+        
+        public void formBackGroundUpdater() {
+            if (!InvokeRequired) {
+                // PRESSDETECTOR OSZTÁLYBAN VAN EGY METÓDUS AMI ÉRTÉKELI AZ UTOLSÓ NYOMÁST
+                // TODO: VALAHOGY A UI-ON JELEZNI A MINŐSÉGÉT
+                // EZ MOST NEM MŰKÖDIK
+                String lastPressIs = pressDetector.lastPressEvaluated;
+                switch (lastPressIs) {
+                    case "GOOD":
+                        this.BackColor = System.Drawing.Color.DarkSeaGreen;
+                        break;
+                    case "OVERPRESSED":
+                        this.BackColor = System.Drawing.Color.DarkRed;
+                        break;
+                    case "WEAK":
+                        this.BackColor = System.Drawing.Color.Aqua;
+                        break;
+                }
             }
             else
-                Invoke(new Action(progressBarUpdater));
+                Invoke(new Action(formBackGroundUpdater));
         }
 
-        //public void labelUpdater()
-        //{
-        //    if ( !InvokeRequired )
-        //        //TODO
-        //    else
-        //        Invoke( new Action( labelUpdater ) );
-        //}
-        //end of updaters
+        public void labelUpdater() {
+            if (!InvokeRequired) {
+                // FUT EGY TIMER A UI-ON
+                elapsedTime = DateTime.Now - startTime;
+                timer_lbl.Text = "Eltelt idő: " + elapsedTime.ToString(@"mm\:ss");
+            }
+            else
+                Invoke(new Action(labelUpdater));
+        }
+        // =========         END OF UI UPDATERS         =======
 
-        // ========= FILE MENTÉS ===========
-        private void saveToFile()
-        {
+        // =========            FILE MENTÉS             =======
+        private void saveToFile() {
             string fileName = "InputSignal_" + DateTime.Now.ToFileTimeUtc() + ".txt";
             StreamWriter sr = new StreamWriter(fileName);
 
-            foreach (var item in inputSignal)
-            {
+            foreach (var item in inputSignal) {
                 sr.Write(item.ToString() + ";");
             }
-
             sr.Close();
         }
 
-        // ============ SerialReading thread ============
-        private void SerialReading()
-        {
+        // ============     SERIALTHREAD CIKLUS         =======
+        private void SerialReading() {
             var raw_data = cprPort.ReadLine();
 
-            aTimer.Start();
-
-            // ADDIG AMÍG MEG NEM SZAKAD A KAPCSOLAT VAGY LE NEM JÁR A 30 MP
-            while (cprPort.IsOpen || pressDetector.cprCounter.Equals(30))
-            {
-                // TODO: Countdownnál leáll 60mp után
+            startTime = DateTime.Now;
+            
+            //cprPort.IsOpen mindig igazat fog adni TODO: ha kihúzodott az eszköz le kell állítani
+            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 ) {
+                formBackGroundUpdater();
+                elapsedTime = DateTime.Now - startTime;
+                
                 raw_data = cprPort.ReadLine();
                 raw_data = raw_data.Trim();
 
@@ -112,18 +121,16 @@ namespace CPRFeedbackER
                 pressDetector.PeakDetector(ref inputSignal);
 
                 gaugeUpdater();
-                progressBarUpdater();
+                labelUpdater();
+                
             }
 
-            //pressDetector.BpmCalculator(  TIMER   );
+            //evaluationStart();
         }
-
         // ========= INDÍTÁS GOMB ===========
-        private void btn_Start_Click(object sender, EventArgs e)
-        {
+        private void btn_Start_Click(object sender, EventArgs e) {
             btn_Stop.Enabled = true;
             btn_Start.Enabled = false;
-
             try {
                 if (!cprPort.IsOpen)
                     cprPort.Open();
@@ -131,7 +138,6 @@ namespace CPRFeedbackER
             catch (Exception ex) {
                 MessageBox.Show("Hiba a porttal kapcsolatban! " + ex.Message, "Error!");
             }
-
             try {
                 serialReaderthread = new Thread(SerialReading);
                 serialReaderthread.Start();
@@ -141,10 +147,13 @@ namespace CPRFeedbackER
             }
         }
 
+        public void evaluationStart(int reason) {
+            //TODO: HA VÉGE AKKOR HÍVODJON MEG EZ
+            // KELL NEKI KÜLÖN FORM !
+        }
+
         // ========= LEÁLLÍTÁS GOMB ===========
-        private void btn_Stop_Click(object sender, EventArgs e)
-        {
-            aTimer.Stop();
+        private void btn_Stop_Click(object sender, EventArgs e) {
             StopReadingThread();
             btn_Start.Enabled = true;
 
@@ -152,30 +161,21 @@ namespace CPRFeedbackER
                 saveToFile();
                 btn_Stop.Enabled = false;
             }
+            //evaluationStart();
         }
 
         // ========= BEZÁRÁS GOMB ===========
-        private void btn_Close_Click(object sender, EventArgs e)
-        {
+        private void btn_Close_Click(object sender, EventArgs e) {
             cprPort.Close();
             if (serialReaderthread.IsAlive)
                 serialReaderthread.Abort();
             Application.Exit();
         }
-
-        // ========= TIMER =============
-        private void TimesUp(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            MessageBox.Show("TODO felkínálni az eredmény megtekintését vagy új mérés kezdése");
-            aTimer.Dispose();
-            StopReadingThread();
-        }
-
-        public void StopReadingThread()
-        {
+      
+        // 
+        public void StopReadingThread() {
             if (serialReaderthread.IsAlive)
                 serialReaderthread.Abort();
         }
-
     }
 }

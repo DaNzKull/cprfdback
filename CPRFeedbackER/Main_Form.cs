@@ -22,7 +22,6 @@ namespace CPRFeedbackER
             cprPort = new SerialPortClass();
             comboBox1.Items.AddRange(cprPort.PortFinder());
         }
-       
         private void btn_Connect_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(comboBox1.Text))
@@ -46,7 +45,6 @@ namespace CPRFeedbackER
                 System.Threading.Thread.Sleep(500);
             }
         }
-        
 
         private void btn_new_Click(object sender, EventArgs e)
         {
