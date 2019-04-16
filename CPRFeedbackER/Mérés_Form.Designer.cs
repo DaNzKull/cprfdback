@@ -90,9 +90,9 @@
             this.btn_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Stop.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Stop.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Stop.Location = new System.Drawing.Point(-1, 356);
+            this.btn_Stop.Location = new System.Drawing.Point(-1, 337);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(188, 49);
+            this.btn_Stop.Size = new System.Drawing.Size(197, 49);
             this.btn_Stop.TabIndex = 4;
             this.btn_Stop.Text = "Leállítás";
             this.btn_Stop.UseVisualStyleBackColor = true;
@@ -105,7 +105,7 @@
             this.btn_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Start.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Start.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Start.Location = new System.Drawing.Point(0, 301);
+            this.btn_Start.Location = new System.Drawing.Point(0, 70);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(187, 49);
             this.btn_Start.TabIndex = 2;
@@ -156,7 +156,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(568, 67);
+            this.label3.Location = new System.Drawing.Point(572, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(237, 31);
             this.label3.TabIndex = 7;

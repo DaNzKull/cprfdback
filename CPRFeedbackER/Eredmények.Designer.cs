@@ -31,14 +31,14 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
+            this.bpmGauge = new LiveCharts.WinForms.SolidGauge();
             this.label1 = new System.Windows.Forms.Label();
-            this.solidGauge2 = new LiveCharts.WinForms.SolidGauge();
+            this.idealPressGauge = new LiveCharts.WinForms.SolidGauge();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.solidGauge3 = new LiveCharts.WinForms.SolidGauge();
+            this.releaseGauge = new LiveCharts.WinForms.SolidGauge();
             this.label3 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -85,18 +85,18 @@
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_Close.Location = new System.Drawing.Point(5, 444);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(102, 33);
+            this.btn_Close.Size = new System.Drawing.Size(102, 34);
             this.btn_Close.TabIndex = 6;
             this.btn_Close.Text = "Megnyítás";
             this.btn_Close.UseVisualStyleBackColor = true;
             // 
-            // solidGauge1
+            // bpmGauge
             // 
-            this.solidGauge1.Location = new System.Drawing.Point(272, 32);
-            this.solidGauge1.Name = "solidGauge1";
-            this.solidGauge1.Size = new System.Drawing.Size(200, 100);
-            this.solidGauge1.TabIndex = 7;
-            this.solidGauge1.Text = "solidGauge1";
+            this.bpmGauge.Location = new System.Drawing.Point(272, 32);
+            this.bpmGauge.Name = "bpmGauge";
+            this.bpmGauge.Size = new System.Drawing.Size(200, 100);
+            this.bpmGauge.TabIndex = 7;
+            this.bpmGauge.Text = "BPMGauge";
             // 
             // label1
             // 
@@ -108,13 +108,13 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "BPM";
             // 
-            // solidGauge2
+            // idealPressGauge
             // 
-            this.solidGauge2.Location = new System.Drawing.Point(849, 32);
-            this.solidGauge2.Name = "solidGauge2";
-            this.solidGauge2.Size = new System.Drawing.Size(200, 100);
-            this.solidGauge2.TabIndex = 9;
-            this.solidGauge2.Text = "solidGauge2";
+            this.idealPressGauge.Location = new System.Drawing.Point(849, 32);
+            this.idealPressGauge.Name = "idealPressGauge";
+            this.idealPressGauge.Size = new System.Drawing.Size(200, 100);
+            this.idealPressGauge.TabIndex = 9;
+            this.idealPressGauge.Text = "solidGauge2";
             // 
             // label4
             // 
@@ -123,7 +123,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 13);
             this.label4.TabIndex = 12;
-            this.label4.Text = "160";
+            this.label4.Text = "150";
             // 
             // label5
             // 
@@ -139,9 +139,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(1055, 119);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 13);
+            this.label6.Size = new System.Drawing.Size(25, 13);
             this.label6.TabIndex = 14;
-            this.label6.Text = "30";
+            this.label6.Text = "120";
             // 
             // label7
             // 
@@ -152,19 +152,19 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "0";
             // 
-            // solidGauge3
+            // releaseGauge
             // 
-            this.solidGauge3.Location = new System.Drawing.Point(562, 32);
-            this.solidGauge3.Name = "solidGauge3";
-            this.solidGauge3.Size = new System.Drawing.Size(200, 100);
-            this.solidGauge3.TabIndex = 19;
-            this.solidGauge3.Text = "solidGauge3";
+            this.releaseGauge.Location = new System.Drawing.Point(562, 32);
+            this.releaseGauge.Name = "releaseGauge";
+            this.releaseGauge.Size = new System.Drawing.Size(200, 100);
+            this.releaseGauge.TabIndex = 19;
+            this.releaseGauge.Text = "solidGauge3";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(595, 9);
+            this.label3.Location = new System.Drawing.Point(602, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 20);
             this.label3.TabIndex = 20;
@@ -174,20 +174,20 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(891, 9);
+            this.label8.Location = new System.Drawing.Point(857, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(114, 20);
+            this.label8.Size = new System.Drawing.Size(182, 20);
             this.label8.TabIndex = 21;
-            this.label8.Text = "Ideális nyomás";
+            this.label8.Text = "Ideális nyomások száma";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(768, 119);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(19, 13);
+            this.label2.Size = new System.Drawing.Size(25, 13);
             this.label2.TabIndex = 22;
-            this.label2.Text = "30";
+            this.label2.Text = "120";
             // 
             // label9
             // 
@@ -226,14 +226,14 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.solidGauge3);
+            this.Controls.Add(this.releaseGauge);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.solidGauge2);
+            this.Controls.Add(this.idealPressGauge);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.solidGauge1);
+            this.Controls.Add(this.bpmGauge);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.listBox1);
@@ -250,14 +250,14 @@
         private System.Windows.Forms.ListBox listBox1;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.Button btn_Close;
-        private LiveCharts.WinForms.SolidGauge solidGauge1;
+        private LiveCharts.WinForms.SolidGauge bpmGauge;
         private System.Windows.Forms.Label label1;
-        private LiveCharts.WinForms.SolidGauge solidGauge2;
+        private LiveCharts.WinForms.SolidGauge idealPressGauge;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private LiveCharts.WinForms.SolidGauge solidGauge3;
+        private LiveCharts.WinForms.SolidGauge releaseGauge;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label2;
