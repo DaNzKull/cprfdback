@@ -36,22 +36,41 @@ namespace CPRFeedbackER {
             gauge1.Value = 0;
 
             // Gauge 2 AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
-            gauge2.FromColor = Colors.Green;
-            gauge2.ToColor = Colors.Red;
-            gauge2.Uses360Mode = true;
-            gauge2.HighFontSize = 50;
-            
-            gauge2.InnerRadius = 2;
-            gauge2.From = 0;
-            gauge2.To = 1023;
-            gauge2.AnimationsSpeed = (TimeSpan.FromTicks(0));
+            depthGauge.Value = 0;
+            depthGauge.FromValue = 0;
+            depthGauge.ToValue = 1023;
+            //depthGauge.TicksForeground = Brushes.OrangeRed;
+            //depthGauge.Base.Foreground = Brushes.White;
+            //depthGauge.Base.FontWeight = FontWeights.Bold;
+            depthGauge.Base.FontSize = 10;
+            depthGauge.NeedleFill = Brushes.Black;
+            depthGauge.AnimationsSpeed = (TimeSpan.FromTicks(0));
+            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection
+            {
+                FromValue = 0,
+                ToValue = 400,
+                Fill = new SolidColorBrush(Color.FromRgb(247, 166, 37))
+            });
+            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection
+            {
+                FromValue = 400,
+                ToValue = 600,
+                Fill = new SolidColorBrush(Color.FromRgb(0, 204, 0))
+            });
+            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection
+            {
+                FromValue = 600,
+                ToValue = 1023,
+                Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0))
+            });
+
         }
 
         // UI ELEMENT UPDATERS   // NEM LEHET ELÉRNI MÁSIK THREADBŐL ENÉLKÜL
         public void gaugeUpdater() {
             if (!InvokeRequired) {
                 gauge1.Value = pressDetector.cprCounter;
-                gauge2.Value = pressDetector.lastPressedValue;
+                depthGauge.Value = pressDetector.lastPressedValue;
             }
             else
                 Invoke(new Action(gaugeUpdater));

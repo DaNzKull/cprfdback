@@ -37,9 +37,8 @@
             this.elementHost2 = new System.Windows.Forms.Integration.ElementHost();
             this.gauge1 = new LiveCharts.Wpf.Gauge();
             this.label2 = new System.Windows.Forms.Label();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.gauge2 = new LiveCharts.Wpf.Gauge();
             this.label3 = new System.Windows.Forms.Label();
+            this.depthGauge = new LiveCharts.WinForms.AngularGauge();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -126,7 +125,7 @@
             // elementHost2
             // 
             this.elementHost2.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.elementHost2.Location = new System.Drawing.Point(217, 101);
+            this.elementHost2.Location = new System.Drawing.Point(202, 101);
             this.elementHost2.Name = "elementHost2";
             this.elementHost2.Size = new System.Drawing.Size(292, 316);
             this.elementHost2.TabIndex = 4;
@@ -137,30 +136,29 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(250, 67);
+            this.label2.Location = new System.Drawing.Point(234, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(230, 31);
             this.label2.TabIndex = 5;
             this.label2.Text = "Nyomások száma";
             // 
-            // elementHost1
-            // 
-            this.elementHost1.Location = new System.Drawing.Point(540, 101);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(292, 316);
-            this.elementHost1.TabIndex = 6;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.gauge2;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(572, 67);
+            this.label3.Location = new System.Drawing.Point(560, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(237, 31);
             this.label3.TabIndex = 7;
             this.label3.Text = "Nyomás mélysége";
+            // 
+            // depthGauge
+            // 
+            this.depthGauge.Location = new System.Drawing.Point(517, 101);
+            this.depthGauge.Name = "depthGauge";
+            this.depthGauge.Size = new System.Drawing.Size(305, 316);
+            this.depthGauge.TabIndex = 8;
+            this.depthGauge.Text = "angularGauge1";
             // 
             // CPRFeedbackER
             // 
@@ -170,8 +168,8 @@
             this.BackColor = System.Drawing.Color.Azure;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(834, 420);
+            this.Controls.Add(this.depthGauge);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.elementHost2);
@@ -196,10 +194,9 @@
         private System.Windows.Forms.Integration.ElementHost elementHost2;
         private LiveCharts.Wpf.Gauge gauge1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private LiveCharts.Wpf.Gauge gauge2;
         private System.Windows.Forms.Label timer_lbl;
         private System.Windows.Forms.Label label3;
+        private LiveCharts.WinForms.AngularGauge depthGauge;
     }
 }
 
