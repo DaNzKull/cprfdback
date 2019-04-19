@@ -14,12 +14,12 @@ namespace CPRFFeedBackTests
 	{
 
 		public IRepository MockRepository;
-		ObservableCollection<Measurment> measurments;
+		List<Measurment> measurments;
 		Measurment mm;
 		[TestInitialize]
 		public void Init()
 		{
-			measurments = new ObservableCollection<Measurment>
+			measurments = new List<Measurment>
 				{
 					new Measurment { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" },
 					new Measurment { Id = 2, Name = "Kati", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448"},
