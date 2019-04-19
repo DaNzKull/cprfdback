@@ -134,7 +134,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
       <CustomToolNamespace>My.Project.S.Proper.Namespace</CustomToolNamespace>
     </EmbeddedResource>
@@ -168,11 +167,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -1098,8 +1092,15 @@
     <Content Include="packages\MaterialDesignThemes.2.4.1.1101\lib\net45\MaterialDesignThemes.Wpf.pdb" />
     <Content Include="packages\MaterialDesignThemes.2.4.1.1101\lib\net45\MaterialDesignThemes.Wpf.XML" />
     <Content Include="packages\SampleDependency.1.0.0\content\Scripts\nugetexample.js" />
+    <None Include="Resources\háttér1.png" />
+    <None Include="Resources\háttér4.png" />
+    <None Include="Resources\háttér6.png" />
     <Content Include="Resources\InputSignal_131990196899752877.txt" />
     <Content Include="Resources\InputSignal_131990410350130971.txt" />
+    <None Include="Resources\logocprfeedbacker1.png" />
+    <None Include="Resources\jelzohatter.png" />
+    <None Include="Resources\Névtelen-1.jpg" />
+    <None Include="Resources\logocprfeedbacker.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
