@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -30,6 +31,7 @@ namespace CPRFeedbackER {
             gauge1.InnerRadius = 0;
             gauge1.HighFontSize = 60;
             gauge1.Value = 0;
+			
 
             // Gauge 2 AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
             depthGauge.Value = 0;
@@ -116,7 +118,8 @@ namespace CPRFeedbackER {
             cprPort.Close();
             if (serialReaderthread.IsAlive)
                 serialReaderthread.Abort();
-            Application.Exit();
+			this.Close();
+          //  Application.Exit();
         }
 
         // ========= INDÍTÁS GOMB ===========
@@ -146,11 +149,30 @@ namespace CPRFeedbackER {
                 saveToFile();
                 btn_Stop.Enabled = false;
             }
-            //evaluationStart();
+            EvaluationStart();
         }
 
-        // =========            FILE MENTÉS             =======
-        private void saveToFile() {
+		private void EvaluationStart()
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (var item in inputSignal)
+			{
+				sb.Append(item.ToString() + ";");
+			}
+			var name = String.Empty;
+			if (Helper.InputBox("Új név", "Név", ref name) == DialogResult.OK && !String.IsNullOrEmpty(name))
+			{
+				DataBaseManager db = new DataBaseManager();
+				db.AddItem(new Measurment
+				{
+					Name = name,
+					Values = sb.ToString()
+				});
+			}
+		}
+
+		// =========            FILE MENTÉS             =======
+		private void saveToFile() {
             string fileName = "InputSignal_" + DateTime.Now.ToFileTimeUtc() + ".txt";
             StreamWriter sr = new StreamWriter(fileName);
 
@@ -183,7 +205,7 @@ namespace CPRFeedbackER {
                 labelUpdater();
             }
 
-            //evaluationStart();
+            EvaluationStart();
         }
     }
 }

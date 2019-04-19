@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -38,10 +39,29 @@ namespace CPRFeedbackER {
                     new GradientStop(Colors.Red, 1)
                 }
             };
+			SetData();
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+		private void SetData()
+		{
+			var db = new DataBaseManager();
+			ObservableCollection<Measurment> data = db.GetAllItems();
+			lbMeasurements.DataSource = data;
+		}
+
+		private void button1_Click(object sender, EventArgs e) {
             this.Close();
         }
-    }
+
+		
+
+		private void btn_Open_Click(object sender, EventArgs e)
+		{
+			if (lbMeasurements.SelectedItem != null)
+			{
+				//  var item= (Measurment)lbMeasurements.SelectedItem;
+				//go!
+			}
+		}
+	}
 }

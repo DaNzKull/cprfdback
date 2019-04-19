@@ -53,9 +53,6 @@
     <Reference Include="DSP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DSP.1.0.0\lib\DSP.dll</HintPath>
     </Reference>
-    <Reference Include="ExtraTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DialogBoxForMaterialDesignToolkitInXaml.1.0.0\lib\net45\ExtraTools.dll</HintPath>
-    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -68,20 +65,8 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesign, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesign.dll.1.0.0\lib\MaterialDesign.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignExtensions, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignExtensions.2.3.0\lib\net45\MaterialDesignExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.1.1101, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.4.1.1101\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialSkin">
-      <HintPath>..\..\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\MaterialSkin.dll</HintPath>
+    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -115,6 +100,7 @@
     <Compile Include="Eredmények.Designer.cs">
       <DependentUpon>Eredmények.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Measurment.cs" />
     <Compile Include="Mérés_Form.cs">
@@ -129,138 +115,6 @@
     <Compile Include="Main_Form.Designer.cs">
       <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Badged.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ButtonProgressAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Card.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Chip.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Clock.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ClockChoiceMadeEventArgs.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ClockItemButton.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ColorZone.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ColorZoneAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ComboBoxAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ComboBoxPopup.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\BrushRoundConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\BrushToRadialGradientBrushConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CalendarDateCoalesceConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\ArcEndPointConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\ArcSizeConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\LargeArcConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\LocalEx.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\RotateTransformCentreConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\RotateTransformConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\CircularProgressBar\StartPointConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\ClockItemIsCheckedConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\ClockLineConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\DrawerOffsetConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\EqualityToVisibilityConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\HintProxyFabricConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\ListViewItemContainerStyleConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\MathConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\MathMultipleConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\NotConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\NotZeroConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\NotZeroToVisibilityConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\NullableDateTimeToCurrentDateConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\PointValueConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\RangeLengthConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\RangePositionConverterConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\ShadowConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\ShadowEdgeConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\ShadowInfo.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\SizeToRectConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\SnackbarMessageTypeConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\TextFieldHintVisibilityConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Converters\TimeToVisibilityConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\CustomPopupPlacementCallbackHelper.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DataGridAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DateTimeEx.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogClosingEventArgs.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogClosingEventHandler.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogHost.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogHostEx.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogOpenedEventArgs.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogOpenedEventHandler.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DialogSession.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DpiHelper.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\DrawerHost.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Extensions.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Flipper.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\HintAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\HintProxyFabric.ComboBox.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\HintProxyFabric.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\HintProxyFabric.PasswordBox.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\HintProxyFabric.TextBox.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Icon.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\IconType.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\IHintProxy.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ISnackbarMessageQueue.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ListBoxAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ListSortDirectionIndicator.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ListViewAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\MaterialDataGridComboBoxColumn.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\MaterialDataGridTextColumn.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\MaterialDateDisplay.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\MessageQueueExtension.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\obj\AppVeyor\GeneratedInternalTypeHelper.g.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\PackIcon.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\PackIconDataFactory.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\PackIconExtension.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\PackIconKind.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Palette.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\PaletteHelper.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Plane3D.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\PopupBox.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Properties\AssemblyInfo.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Properties\Resources.Designer.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Properties\Settings.Designer.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\RatingBar.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\RatingBarButton.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Ripple.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\RippleAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ScaleHost.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Screen.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ScrollViewerAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ShadowAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\SmartHint.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Snackbar.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\SnackbarMessage.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\SnackbarMessageEventArgs.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\SnackbarMessageQueue.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\SnackbarMessageQueueItem.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Spelling.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\StringExtensions.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\TextFieldAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\TimePicker.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ToggleButtonAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ToolTipAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\CircleWipe.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\FadeWipe.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\IndexedItemOffsetMultiplierExtension.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\ITransitionEffect.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\ITransitionEffectSubject.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\ITransitionWipe.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\IZIndexController.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\SlideDirection.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\SlideOutWipe.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\SlideWipe.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionEffect.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionEffectBase.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionEffectExtension.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionEffectKind.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionEffectTypeConverter.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\Transitioner.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionerSlide.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitionerSlideState.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitioningContent.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Transitions\TransitioningContentBase.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\TreeHelper.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\TreeViewAssist.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\Underline.cs" />
-    <Compile Include="packages\MaterialDesignThemes.2.4.1.1101\src\net45\ValidationAssist.cs" />
     <Compile Include="PressDetector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Prompt.cs" />
@@ -284,6 +138,7 @@
       <SubType>Designer</SubType>
       <CustomToolNamespace>My.Project.S.Proper.Namespace</CustomToolNamespace>
     </EmbeddedResource>
+    <None Include="bower.json" />
     <None Include="packages.config" />
     <None Include="packages\ControlzEx.3.0.2.4\ControlzEx.3.0.2.4.nupkg" />
     <None Include="packages\DialogBoxForMaterialDesignToolkitInXaml.1.0.0\DialogBoxForMaterialDesignToolkitInXaml.1.0.0.nupkg" />
@@ -326,7 +181,9 @@
     <None Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_data\Measurement.mdf">
