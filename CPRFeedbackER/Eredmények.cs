@@ -39,29 +39,24 @@ namespace CPRFeedbackER {
                     new GradientStop(Colors.Red, 1)
                 }
             };
-			SetData();
+            SetData();
         }
 
-		private void SetData()
-		{
-			var db = new DataBaseManager();
-			ObservableCollection<Measurment> data = db.GetAllItems();
-			lbMeasurements.DataSource = data;
-		}
+        private void SetData() {
+            var db = new DataBaseManager();
+            ObservableCollection<Measurment> data = db.GetAllItems();
+            lbMeasurements.DataSource = data;
+        }
 
-		private void button1_Click(object sender, EventArgs e) {
+        private void btn_Close_Click(object sender, EventArgs e) {
             this.Close();
         }
 
-		
-
-		private void btn_Open_Click(object sender, EventArgs e)
-		{
-			if (lbMeasurements.SelectedItem != null)
-			{
-				//  var item= (Measurment)lbMeasurements.SelectedItem;
-				//go!
-			}
-		}
-	}
+        private void btn_Open_Click(object sender, EventArgs e) {
+            if (lbMeasurements.SelectedItem != null) {
+                //  var item= (Measurment)lbMeasurements.SelectedItem;
+                //go!
+            }
+        }
+    }
 }
