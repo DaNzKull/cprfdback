@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRFeedbackER", "CPRFeedbackER\CPRFeedbackER.csproj", "{197D204A-CBBC-4589-8FDD-1CB115549BEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRFFeedBackTests", "CPRFFeedBackTests\CPRFFeedBackTests.csproj", "{BF2F9964-80C6-482B-9426-FC9DBA28EE1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleProject", "ConsolePRoject\ConsoleProject.csproj", "{A83AF34F-60F0-4BE1-9C70-403536ADB64D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{197D204A-CBBC-4589-8FDD-1CB115549BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{197D204A-CBBC-4589-8FDD-1CB115549BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{197D204A-CBBC-4589-8FDD-1CB115549BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF2F9964-80C6-482B-9426-FC9DBA28EE1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2F9964-80C6-482B-9426-FC9DBA28EE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2F9964-80C6-482B-9426-FC9DBA28EE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2F9964-80C6-482B-9426-FC9DBA28EE1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A83AF34F-60F0-4BE1-9C70-403536ADB64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83AF34F-60F0-4BE1-9C70-403536ADB64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83AF34F-60F0-4BE1-9C70-403536ADB64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A83AF34F-60F0-4BE1-9C70-403536ADB64D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
