@@ -75,7 +75,7 @@ namespace CPRFeedbackER {
                 elapsedTime = DateTime.Now - startTime;
 
                 TimeSpan timeLeft = oneMin - elapsedTime;
-                timer_lbl.Text = timeLeft.ToString(@"mm\:ss") + " mp";
+                timer_lbl.Text = timeLeft.ToString(@"ss") + " mp";
             } else
                 Invoke(new Action(labelUpdater));
         }

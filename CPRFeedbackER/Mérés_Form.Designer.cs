@@ -175,7 +175,7 @@
             // gauge1
             // 
             this.gauge1.BackColorTransparent = true;
-            this.gauge1.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
+            //this.gauge1.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
             this.gauge1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gauge1.Location = new System.Drawing.Point(210, 84);
             this.gauge1.Name = "gauge1";
@@ -186,7 +186,7 @@
             // depthGauge
             // 
             this.depthGauge.BackColorTransparent = true;
-            this.depthGauge.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
+            //this.depthGauge.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
             this.depthGauge.Location = new System.Drawing.Point(529, 84);
             this.depthGauge.Name = "depthGauge";
             this.depthGauge.Size = new System.Drawing.Size(302, 333);
@@ -214,7 +214,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.jelzohatter;
+            //this.panel4.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.jelzohatter;
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel4.Controls.Add(this.labelGood);
             this.panel4.Controls.Add(this.labelWeak);
@@ -268,7 +268,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
+            //this.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(834, 420);
             this.Controls.Add(this.panel4);
