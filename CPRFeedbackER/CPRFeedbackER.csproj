@@ -119,6 +119,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SerialPortClass.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -136,6 +141,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <CustomToolNamespace>My.Project.S.Proper.Namespace</CustomToolNamespace>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="bower.json" />
     <None Include="packages.config" />
@@ -1095,12 +1101,17 @@
     <None Include="Resources\háttér1.png" />
     <None Include="Resources\háttér4.png" />
     <None Include="Resources\háttér6.png" />
+    <None Include="Resources\closeicon.png" />
+    <Content Include="Resources\háttér2.png" />
+    <None Include="Resources\háttér21.png" />
+    <Content Include="Resources\háttér3.png" />
     <Content Include="Resources\InputSignal_131990196899752877.txt" />
     <Content Include="Resources\InputSignal_131990410350130971.txt" />
     <None Include="Resources\logocprfeedbacker1.png" />
     <None Include="Resources\jelzohatter.png" />
     <None Include="Resources\Névtelen-1.jpg" />
     <None Include="Resources\logocprfeedbacker.png" />
+    <Content Include="Resources\Névtelen-1.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

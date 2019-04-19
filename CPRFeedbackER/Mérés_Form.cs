@@ -12,7 +12,7 @@ namespace CPRFeedbackER {
         private TimeSpan elapsedTime = new TimeSpan();
 
         // Az Arduino ADC convertere miatt az analóg jelet 0-1023 közötti intekké alakítja, ez jön be
-        private List<int> inputSignal = new List<int>();
+        public List<int> inputSignal = new List<int>();
 
         private PressDetector pressDetector = new PressDetector();
         private Thread serialReaderthread;
@@ -143,7 +143,7 @@ namespace CPRFeedbackER {
 
         // ========= LEÁLLÍTÁS GOMB ===========
         private void btn_Stop_Click(object sender, EventArgs e) {
-            StopReadingThread();
+            //StopReadingThread();
             btn_Start.Enabled = true;
 
             EvaluationStart();
@@ -158,7 +158,7 @@ namespace CPRFeedbackER {
             var name = String.Empty;
             if (Helper.InputBox("Új név", "Név", ref name) == DialogResult.OK && !String.IsNullOrEmpty(name)) {
                 DataBaseManager db = new DataBaseManager();
-                db.AddItem(new Measurment {
+                db.AddItem(new Measurement {
                     Name = name,
                     Values = sb.ToString()
                 });
@@ -173,7 +173,7 @@ namespace CPRFeedbackER {
 
             //cprPort.IsOpen mindig igazat fog adni TODO: ha kihúzodott az eszköz le kell állítani
             while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60) {
-                formBackGroundUpdater();
+                
                 elapsedTime = DateTime.Now - startTime;
 
                 raw_data = cprPort.ReadLine();
@@ -188,7 +188,7 @@ namespace CPRFeedbackER {
                 formBackGroundUpdater();
                 labelUpdater();
             }
-
+            //StopReadingThread();
             EvaluationStart();
         }
     }

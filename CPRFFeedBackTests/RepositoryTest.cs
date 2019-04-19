@@ -14,32 +14,32 @@ namespace CPRFFeedBackTests
 	{
 
 		public IRepository MockRepository;
-		ObservableCollection<Measurment> measurments;
-		Measurment mm;
+		ObservableCollection<Measurement> Measurements;
+		Measurement mm;
 		[TestInitialize]
 		public void Init()
 		{
-			measurments = new ObservableCollection<Measurment>
+			Measurements = new ObservableCollection<Measurement>
 				{
-					new Measurment { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" },
-					new Measurment { Id = 2, Name = "Kati", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448"},
-					new Measurment { Id = 3, Name = "Jözsi", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448"}
+					new Measurement { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" },
+					new Measurement { Id = 2, Name = "Kati", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448"},
+					new Measurement { Id = 3, Name = "Jözsi", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448"}
 
 				};
 
 
 			// Mock the Products Repository using Moq
-			mm = new Measurment { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" };
+			mm = new Measurement { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" };
 
 			Mock<IRepository> mockRepository = new Mock<IRepository>();
 
 			mockRepository.Setup(mr => mr.UpdateItem(mm));
 			mockRepository.Setup(mr => mr.DeleteItem(mm));
-			mockRepository.Setup(mr => mr.GetAllItems()).Returns(measurments);
+			mockRepository.Setup(mr => mr.GetAllItems()).Returns(Measurements);
 
-			mockRepository.Setup(mr => mr.AddItem(It.IsAny<Measurment>())).Returns(
+			mockRepository.Setup(mr => mr.AddItem(It.IsAny<Measurement>())).Returns(
 
-				(Measurment target) =>
+				(Measurement target) =>
 				{
 					var original = mm;
 					if (original == null)
@@ -57,7 +57,7 @@ namespace CPRFFeedBackTests
 		public void CanSave()
 		{
 			int count = this.MockRepository.GetAllItems().Count;
-			var mes = new Measurment { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" };
+			var mes = new Measurement { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" };
 			this.MockRepository.AddItem(mes);
 			
 
@@ -70,7 +70,7 @@ namespace CPRFFeedBackTests
 		public void CanUpdate()
 		{
 			int count = this.MockRepository.GetAllItems().Count;
-			var mes = new Measurment { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" };
+			var mes = new Measurement { Id = 1, Name = "Laci", Values = "594;587;577;570;561;552;541;531;520;509;497;486;474;460;448" };
 			this.MockRepository.AddItem(mes);
 
 

@@ -9,10 +9,10 @@ namespace CPRFeedbackER
 {
 	public interface IRepository
 	{
-		bool AddItem(Measurment mes);
-		bool DeleteItem(Measurment mes);
-		ObservableCollection<Measurment> GetAllItems();
-		bool UpdateItem(Measurment mes);
-		List<Measurment> GetItemById(int id);
+		bool AddItem(Measurement mes);
+		bool DeleteItem(Measurement mes);
+		ObservableCollection<Measurement> GetAllItems();
+		bool UpdateItem(Measurement mes);
+		List<Measurement> GetItemById(int id);
 	}
 }

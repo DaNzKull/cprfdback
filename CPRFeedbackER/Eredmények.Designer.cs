@@ -44,18 +44,22 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btn_Close = new System.Windows.Forms.Button();
+            this.btn_X = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.SizeNESW;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBox1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox1.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox1.Location = new System.Drawing.Point(-6, -2);
+            this.textBox1.Location = new System.Drawing.Point(0, 0);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(229, 491);
+            this.textBox1.Size = new System.Drawing.Size(229, 489);
             this.textBox1.TabIndex = 2;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -66,7 +70,7 @@
             this.lbMeasurements.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbMeasurements.FormattingEnabled = true;
             this.lbMeasurements.ItemHeight = 17;
-            this.lbMeasurements.Location = new System.Drawing.Point(5, 136);
+            this.lbMeasurements.Location = new System.Drawing.Point(12, 136);
             this.lbMeasurements.Name = "lbMeasurements";
             this.lbMeasurements.Size = new System.Drawing.Size(208, 293);
             this.lbMeasurements.TabIndex = 4;
@@ -75,9 +79,9 @@
             // cartesianChart1
             // 
             this.cartesianChart1.BackColor = System.Drawing.Color.Transparent;
-            this.cartesianChart1.Location = new System.Drawing.Point(229, 138);
+            this.cartesianChart1.Location = new System.Drawing.Point(235, 136);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(878, 351);
+            this.cartesianChart1.Size = new System.Drawing.Size(861, 351);
             this.cartesianChart1.TabIndex = 5;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
@@ -89,7 +93,7 @@
             this.btn_Open.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Open.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Open.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btn_Open.Location = new System.Drawing.Point(5, 444);
+            this.btn_Open.Location = new System.Drawing.Point(10, 443);
             this.btn_Open.Name = "btn_Open";
             this.btn_Open.Size = new System.Drawing.Size(102, 34);
             this.btn_Open.TabIndex = 6;
@@ -120,6 +124,7 @@
             // idealPressGauge
             // 
             this.idealPressGauge.BackColor = System.Drawing.Color.Transparent;
+            this.idealPressGauge.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.idealPressGauge.Location = new System.Drawing.Point(849, 32);
             this.idealPressGauge.Name = "idealPressGauge";
             this.idealPressGauge.Size = new System.Drawing.Size(200, 100);
@@ -224,7 +229,7 @@
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Close.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btn_Close.Location = new System.Drawing.Point(111, 444);
+            this.btn_Close.Location = new System.Drawing.Point(118, 443);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(102, 34);
             this.btn_Close.TabIndex = 24;
@@ -232,14 +237,33 @@
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
+            // btn_X
+            // 
+            this.btn_X.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.closeicon;
+            this.btn_X.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_X.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
+            this.btn_X.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
+            this.btn_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_X.Location = new System.Drawing.Point(1078, -2);
+            this.btn_X.Name = "btn_X";
+            this.btn_X.Size = new System.Drawing.Size(36, 33);
+            this.btn_X.TabIndex = 25;
+            this.btn_X.UseVisualStyleBackColor = false;
+            this.btn_X.Click += new System.EventHandler(this.btn_X_Click);
+            // 
             // Eredmények
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AllowDrop = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.Azure;
-            this.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér2;
+            this.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1108, 489);
+            this.Controls.Add(this.btn_X);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label2);
@@ -257,8 +281,11 @@
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.lbMeasurements);
             this.Controls.Add(this.textBox1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Eredmények";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Eredmények";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -283,5 +310,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btn_Close;
+        private System.Windows.Forms.Button btn_X;
     }
 }
