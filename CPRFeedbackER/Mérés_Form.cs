@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using System.Text;
+using System.Threading;
+=======
+
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
@@ -34,6 +39,7 @@ namespace CPRFeedbackER {
             gauge1.InnerRadius = 0;
             gauge1.HighFontSize = 60;
             gauge1.Value = 0;
+			
 
             // Gauge 2 AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
             depthGauge.Value = 0;
@@ -109,8 +115,77 @@ namespace CPRFeedbackER {
         }
         // =========         END OF UI UPDATERS         =======
 
+
+        //
+        public void StopReadingThread() {
+            if (serialReaderthread.IsAlive)
+                serialReaderthread.Abort();
+        }
+
+        // ========= BEZÁRÁS GOMB ===========
+        private void btn_Close_Click(object sender, EventArgs e) {
+            cprPort.Close();
+            if (serialReaderthread.IsAlive)
+                serialReaderthread.Abort();
+			this.Close();
+          //  Application.Exit();
+        }
+
+        // ========= INDÍTÁS GOMB ===========
+        private void btn_Start_Click(object sender, EventArgs e) {
+            btn_Stop.Enabled = true;
+            btn_Start.Enabled = false;
+            try {
+                if (!cprPort.IsOpen)
+                    cprPort.Open();
+            } catch (Exception ex) {
+                MessageBox.Show("Hiba a porttal kapcsolatban! " + ex.Message, "Error!");
+            }
+            try {
+                serialReaderthread = new Thread(SerialReading);
+                serialReaderthread.Start();
+            } catch (Exception ex) {
+                MessageBox.Show("Szálkezelési hiba: " + ex.Message);
+            }
+        }
+
+        // ========= LEÁLLÍTÁS GOMB ===========
+        private void btn_Stop_Click(object sender, EventArgs e) {
+            StopReadingThread();
+            btn_Start.Enabled = true;
+
+            if (!serialReaderthread.IsAlive && (inputSignal.Count() != 0)) {
+                saveToFile();
+                btn_Stop.Enabled = false;
+            }
+            EvaluationStart();
+        }
+
+		private void EvaluationStart()
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (var item in inputSignal)
+			{
+				sb.Append(item.ToString() + ";");
+			}
+			var name = String.Empty;
+			if (Helper.InputBox("Új név", "Név", ref name) == DialogResult.OK && !String.IsNullOrEmpty(name))
+			{
+				DataBaseManager db = new DataBaseManager();
+				db.AddItem(new Measurment
+				{
+					Name = name,
+					Values = sb.ToString()
+				});
+			}
+		}
+
+		// =========            FILE MENTÉS             =======
+		private void saveToFile() {
+=======
         // =========            FILE MENTÉS             =======
         private void saveToFile() {
+
             string fileName = "InputSignal_" + DateTime.Now.ToFileTimeUtc() + ".txt";
             StreamWriter sr = new StreamWriter(fileName);
 
@@ -166,6 +241,8 @@ namespace CPRFeedbackER {
             }
         }
 
+            EvaluationStart();
+=======
         public void evaluationStart(int reason) {
             //TODO: HA VÉGE AKKOR HÍVODJON MEG EZ
             // KELL NEKI KÜLÖN FORM !
@@ -181,6 +258,7 @@ namespace CPRFeedbackER {
                 btn_Stop.Enabled = false;
             }
             //evaluationStart();
+
         }
 
         // ========= BEZÁRÁS GOMB ===========
