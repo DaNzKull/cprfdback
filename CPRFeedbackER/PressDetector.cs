@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CPRFeedbackER { 
-    class PressDetector {
+namespace CPRFeedbackER {
+
+    internal class PressDetector {
         public static readonly int FULL_RELEASE_MIN = 0;
         public static readonly int FULL_RELEASE_MAX = 50;
         public static readonly int MIN_PRESS = 500;
@@ -35,13 +34,13 @@ namespace CPRFeedbackER {
         public void PeakDetector(ref List<int> input) {
             //TODO: Peak detection
             int input_size = input.Count();
-            if ( input_size <= 4 )
+            if (input_size <= 4)
                 return;
 
             int lastValue = input.ElementAt(input_size - 1);
             int prevValue = input.ElementAt(input_size - 2);
             int prevPrevValue = input.ElementAt(input_size - 3);
-            
+
             // EZ A MOSTANI ARDUINO KÓDDAL JÓL MŰKÖDIK NINCS HAMIS ÉRZÉKELÉS
             if (lastValue < prevValue && prevValue > prevPrevValue && IsPressed(lastValue) && prevPrevValue < prevValue) {
                 cprCounter++;
@@ -51,8 +50,7 @@ namespace CPRFeedbackER {
             lastPressedValue = lastValue;
         }
 
-        public void pressEvaluator( int value ) {
-
+        public void pressEvaluator(int value) {
             if (Enumerable.Range(GOOD_PRESS_MIN, GOOD_PRESS_MAX).Contains(value)) {
                 goodPressCounter++;
                 lastPressEvaluated = "GOOD";
@@ -70,14 +68,14 @@ namespace CPRFeedbackER {
         public void BpmCalculator(int elapsedTime) {
             bpmCounter = cprCounter * (60 / elapsedTime);
         }
-    
+
         private void IsFullRelease(int value) {
             if (Enumerable.Range(FULL_RELEASE_MIN, FULL_RELEASE_MAX).Contains(value))
                 goodReleaseCounter++;
         }
 
         private Boolean IsPressed(int value) {
-            if ( Enumerable.Range( MIN_PRESS, MAX_PRESS ).Contains(value) )
+            if (Enumerable.Range(MIN_PRESS, MAX_PRESS).Contains(value))
                 return true;
             return false;
         }

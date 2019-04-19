@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.IO;
-using System.Globalization;
-using System.Timers;
-using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using System.Windows.Media;
 
-namespace CPRFeedbackER { 
+namespace CPRFeedbackER {
+
     public partial class CPRFeedbackER : Form {
-        readonly SerialPortClass cprPort;
-        Thread serialReaderthread;
-        PressDetector pressDetector = new PressDetector();
-
+        private readonly SerialPortClass cprPort;
+        private TimeSpan elapsedTime = new TimeSpan();
         // Az Arduino ADC convertere miatt az analóg jelet 0-1023 közötti intekké alakítja, ez jön be
-        List<int> inputSignal = new List<int>();
-        int value;
+        private List<int> inputSignal = new List<int>();
 
-        DateTime startTime = new DateTime();
-        TimeSpan elapsedTime = new TimeSpan();
-
+        private PressDetector pressDetector = new PressDetector();
+        private Thread serialReaderthread;
+        private DateTime startTime = new DateTime();
+        private int value;
         public CPRFeedbackER(SerialPortClass cprPort) {
             InitializeComponent();
             this.cprPort = cprPort;
@@ -45,37 +41,28 @@ namespace CPRFeedbackER {
             depthGauge.Base.FontSize = 10;
             depthGauge.NeedleFill = Brushes.Black;
             depthGauge.AnimationsSpeed = (TimeSpan.FromTicks(0));
-            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection
-            {
+            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection {
                 FromValue = 0,
                 ToValue = 400,
                 Fill = new SolidColorBrush(Color.FromRgb(247, 166, 37))
             });
-            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection
-            {
+            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection {
                 FromValue = 400,
                 ToValue = 600,
                 Fill = new SolidColorBrush(Color.FromRgb(0, 204, 0))
             });
-            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection
-            {
+            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection {
                 FromValue = 600,
                 ToValue = 1023,
                 Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0))
             });
-
         }
 
-        // UI ELEMENT UPDATERS   // NEM LEHET ELÉRNI MÁSIK THREADBŐL ENÉLKÜL
-        public void gaugeUpdater() {
-            if (!InvokeRequired) {
-                gauge1.Value = pressDetector.cprCounter;
-                depthGauge.Value = pressDetector.lastPressedValue;
-            }
-            else
-                Invoke(new Action(gaugeUpdater));
+        public void evaluationStart(int reason) {
+            //TODO: HA VÉGE AKKOR HÍVODJON MEG EZ
+            // KELL NEKI KÜLÖN FORM !
         }
-        
+
         public void formBackGroundUpdater() {
             if (!InvokeRequired) {
                 // PRESSDETECTOR OSZTÁLYBAN VAN EGY METÓDUS AMI ÉRTÉKELI AZ UTOLSÓ NYOMÁST
@@ -86,28 +73,81 @@ namespace CPRFeedbackER {
                     case "GOOD":
                         this.BackColor = System.Drawing.Color.DarkSeaGreen;
                         break;
+
                     case "OVERPRESSED":
                         this.BackColor = System.Drawing.Color.DarkRed;
                         break;
+
                     case "WEAK":
                         this.BackColor = System.Drawing.Color.Aqua;
                         break;
                 }
-            }
-            else
+            } else
                 Invoke(new Action(formBackGroundUpdater));
         }
 
+        // UI ELEMENT UPDATERS   // NEM LEHET ELÉRNI MÁSIK THREADBŐL ENÉLKÜL
+        public void gaugeUpdater() {
+            if (!InvokeRequired) {
+                gauge1.Value = pressDetector.cprCounter;
+                depthGauge.Value = pressDetector.lastPressedValue;
+            } else
+                Invoke(new Action(gaugeUpdater));
+        }
         public void labelUpdater() {
             if (!InvokeRequired) {
                 // FUT EGY TIMER A UI-ON
                 elapsedTime = DateTime.Now - startTime;
                 timer_lbl.Text = "Eltelt idő: " + elapsedTime.ToString(@"mm\:ss");
-            }
-            else
+            } else
                 Invoke(new Action(labelUpdater));
         }
+
         // =========         END OF UI UPDATERS         =======
+
+        //
+        public void StopReadingThread() {
+            if (serialReaderthread.IsAlive)
+                serialReaderthread.Abort();
+        }
+
+        // ========= BEZÁRÁS GOMB ===========
+        private void btn_Close_Click(object sender, EventArgs e) {
+            cprPort.Close();
+            if (serialReaderthread.IsAlive)
+                serialReaderthread.Abort();
+            Application.Exit();
+        }
+
+        // ========= INDÍTÁS GOMB ===========
+        private void btn_Start_Click(object sender, EventArgs e) {
+            btn_Stop.Enabled = true;
+            btn_Start.Enabled = false;
+            try {
+                if (!cprPort.IsOpen)
+                    cprPort.Open();
+            } catch (Exception ex) {
+                MessageBox.Show("Hiba a porttal kapcsolatban! " + ex.Message, "Error!");
+            }
+            try {
+                serialReaderthread = new Thread(SerialReading);
+                serialReaderthread.Start();
+            } catch (Exception ex) {
+                MessageBox.Show("Szálkezelési hiba: " + ex.Message);
+            }
+        }
+
+        // ========= LEÁLLÍTÁS GOMB ===========
+        private void btn_Stop_Click(object sender, EventArgs e) {
+            StopReadingThread();
+            btn_Start.Enabled = true;
+
+            if (!serialReaderthread.IsAlive && (inputSignal.Count() != 0)) {
+                saveToFile();
+                btn_Stop.Enabled = false;
+            }
+            //evaluationStart();
+        }
 
         // =========            FILE MENTÉS             =======
         private void saveToFile() {
@@ -125,12 +165,12 @@ namespace CPRFeedbackER {
             var raw_data = cprPort.ReadLine();
 
             startTime = DateTime.Now;
-            
+
             //cprPort.IsOpen mindig igazat fog adni TODO: ha kihúzodott az eszköz le kell állítani
-            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 ) {
+            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60) {
                 formBackGroundUpdater();
                 elapsedTime = DateTime.Now - startTime;
-                
+
                 raw_data = cprPort.ReadLine();
                 raw_data = raw_data.Trim();
 
@@ -141,60 +181,9 @@ namespace CPRFeedbackER {
 
                 gaugeUpdater();
                 labelUpdater();
-                
             }
 
             //evaluationStart();
-        }
-        // ========= INDÍTÁS GOMB ===========
-        private void btn_Start_Click(object sender, EventArgs e) {
-            btn_Stop.Enabled = true;
-            btn_Start.Enabled = false;
-            try {
-                if (!cprPort.IsOpen)
-                    cprPort.Open();
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Hiba a porttal kapcsolatban! " + ex.Message, "Error!");
-            }
-            try {
-                serialReaderthread = new Thread(SerialReading);
-                serialReaderthread.Start();
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Szálkezelési hiba: " + ex.Message);
-            }
-        }
-
-        public void evaluationStart(int reason) {
-            //TODO: HA VÉGE AKKOR HÍVODJON MEG EZ
-            // KELL NEKI KÜLÖN FORM !
-        }
-
-        // ========= LEÁLLÍTÁS GOMB ===========
-        private void btn_Stop_Click(object sender, EventArgs e) {
-            StopReadingThread();
-            btn_Start.Enabled = true;
-
-            if (!serialReaderthread.IsAlive && (inputSignal.Count() != 0)) {
-                saveToFile();
-                btn_Stop.Enabled = false;
-            }
-            //evaluationStart();
-        }
-
-        // ========= BEZÁRÁS GOMB ===========
-        private void btn_Close_Click(object sender, EventArgs e) {
-            cprPort.Close();
-            if (serialReaderthread.IsAlive)
-                serialReaderthread.Abort();
-            Application.Exit();
-        }
-      
-        // 
-        public void StopReadingThread() {
-            if (serialReaderthread.IsAlive)
-                serialReaderthread.Abort();
         }
     }
 }
