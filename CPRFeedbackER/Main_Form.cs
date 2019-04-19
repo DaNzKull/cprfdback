@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CPRFeedbackER
@@ -48,8 +41,6 @@ namespace CPRFeedbackER
 
         private void btn_new_Click(object sender, EventArgs e)
         {
-            // Ha kapcsolódott az arduinohoz létrehozza az új Formot a régit meg elrejti.
-            // TODO: Megoldani, hogy bezárja az ablakot ne elrejtse
             if (cprPort.IsOpen)  
             {
                 var newForm = new CPRFeedbackER(cprPort);
