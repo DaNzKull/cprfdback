@@ -185,7 +185,7 @@ namespace CPRFeedbackER {
                 if (answer == DialogResult.OK) {
                     DataBaseManager db = new DataBaseManager();
                     db.AddItem(new Measurement {
-                        Name = form.Name,
+                        Name = form.name,
                         Comment = form.comment,
                         Values = sb.ToString(),
                         Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")

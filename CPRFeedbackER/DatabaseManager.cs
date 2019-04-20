@@ -31,9 +31,11 @@ namespace CPRFeedbackER {
             try {
                 using (var m_dbConnection = new SqlConnection(sqlConnectionString)) {
                     m_dbConnection.Open();
-                    var sql = String.Format("INSERT INTO [dbo].[Measurements]([Values],[Name]) " +
+                    var sql = String.Format("INSERT INTO [dbo].[Measurements]([Values],[Name],[Date], [Comment]) " +
                                     "VALUES('{0}'," +
-                                    "'{1}')", mes.Values, mes.Name);
+									"'{1}',"+
+									"'{2}'," +
+									"'{3}')", mes.Values, mes.Name,mes.Date, mes.Comment);
 
                     SqlCommand command = new SqlCommand(sql, m_dbConnection);
                     command.ExecuteNonQuery();
@@ -54,7 +56,7 @@ namespace CPRFeedbackER {
             try {
                 using (var m_dbConnection = new SqlConnection(sqlConnectionString)) {
                     m_dbConnection.Open();
-                    var sql = String.Format("DELET FROM [dbo].[Measurements]([Data],[Name]" +
+                    var sql = String.Format("DELETE FROM [dbo].[Measurements] " +
                                     " WHERE Id={0}", mes.Values, mes.Name);
 
                     SqlCommand command = new SqlCommand(sql, m_dbConnection);
@@ -68,7 +70,7 @@ namespace CPRFeedbackER {
 
         //private  bool TableExists<T>(SQLiteConnection connection)
         //{
-        //	SqlCommand cmd = new SqlCommand($"SELECT Measurements FROM sqlite_master WHERE type='table' AND name='{typeof(T).Name}'");
+        //	SqlCommand cmd = new SqlCommand($"SELECT Measurement FROM sqlite_master WHERE type='table' AND name='{typeof(T).Name}'");
         //	return cmd.ExecuteScalar() != null;
 
         //}
@@ -83,7 +85,7 @@ namespace CPRFeedbackER {
             try {
                 using (var m_dbConnection = new SqlConnection(sqlConnectionString)) {
                     m_dbConnection.Open();
-                    var sql = "SELECT [Id],[Values],[Name] FROM [dbo].[Measurements]";
+                    var sql = "SELECT [Id],[Values],[Name],[Date],[Comment] FROM [dbo].[Measurements]";
 
                     SqlCommand command = new SqlCommand(sql, m_dbConnection);
                     var reader = command.ExecuteReader();
@@ -92,7 +94,9 @@ namespace CPRFeedbackER {
                             Id = (int)reader["Id"],
                             Values = reader["Values"].ToString(),
                             Name = reader["Name"].ToString(),
-                        });
+							Date =reader["Date"].ToString(),
+							Comment = reader["Comment"].ToString(),
+						});
                     }
                 }
                 return Measurements;
@@ -136,7 +140,7 @@ namespace CPRFeedbackER {
             try {
                 using (var m_dbConnection = new SqlConnection(sqlConnectionString)) {
                     m_dbConnection.Open();
-                    var sql = String.Format("UPDATE [dbo].[Measurement]" +
+                    var sql = String.Format("UPDATE [dbo].[Measurements]" +
 
                                     "[Values]= '{0}' " +
                                     "[Name]= '{1}' " +
