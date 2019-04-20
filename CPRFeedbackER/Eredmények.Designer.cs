@@ -67,12 +67,12 @@
             // 
             this.lbMeasurements.BackColor = System.Drawing.Color.Azure;
             this.lbMeasurements.DisplayMember = "Name";
-            this.lbMeasurements.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbMeasurements.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbMeasurements.FormattingEnabled = true;
-            this.lbMeasurements.ItemHeight = 17;
+            this.lbMeasurements.ItemHeight = 25;
             this.lbMeasurements.Location = new System.Drawing.Point(12, 136);
             this.lbMeasurements.Name = "lbMeasurements";
-            this.lbMeasurements.Size = new System.Drawing.Size(208, 293);
+            this.lbMeasurements.Size = new System.Drawing.Size(208, 279);
             this.lbMeasurements.TabIndex = 4;
             this.lbMeasurements.ValueMember = "Id";
             // 
@@ -91,7 +91,7 @@
             this.btn_Open.FlatAppearance.BorderSize = 0;
             this.btn_Open.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.btn_Open.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Open.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Open.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.btn_Open.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_Open.Location = new System.Drawing.Point(10, 443);
             this.btn_Open.Name = "btn_Open";
@@ -113,7 +113,7 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic);
             this.label1.Location = new System.Drawing.Point(272, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(200, 20);
@@ -183,7 +183,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic);
             this.label3.Location = new System.Drawing.Point(562, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(200, 23);
@@ -194,7 +194,7 @@
             // label8
             // 
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic);
             this.label8.Location = new System.Drawing.Point(849, 8);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(200, 23);
@@ -227,7 +227,7 @@
             this.btn_Close.FlatAppearance.BorderSize = 0;
             this.btn_Close.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Close.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Close.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_Close.Location = new System.Drawing.Point(118, 443);
             this.btn_Close.Name = "btn_Close";
@@ -239,13 +239,14 @@
             // 
             // btn_X
             // 
-            this.btn_X.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.closeicon;
+            this.btn_X.BackColor = System.Drawing.Color.SeaShell;
+            this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.letter_x;
             this.btn_X.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_X.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
             this.btn_X.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
             this.btn_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_X.Location = new System.Drawing.Point(1078, -2);
+            this.btn_X.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_X.Location = new System.Drawing.Point(1060, -2);
             this.btn_X.Name = "btn_X";
             this.btn_X.Size = new System.Drawing.Size(36, 33);
             this.btn_X.TabIndex = 25;

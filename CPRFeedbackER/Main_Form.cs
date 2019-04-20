@@ -39,7 +39,6 @@ namespace CPRFeedbackER {
             if (cprPort.IsOpen) {
                 var newForm = new CPRFeedbackER(cprPort);
                 newForm.Show();
-               // this.Hide();
             } else
                 MessageBox.Show("Előbb csatlakozni kell az eszközhöz!");
         }

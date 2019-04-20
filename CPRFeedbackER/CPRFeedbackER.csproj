@@ -100,9 +100,14 @@
     <Compile Include="Eredmények.Designer.cs">
       <DependentUpon>Eredmények.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper.cs" />
+    <Compile Include="Popup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup.Designer.cs">
+      <DependentUpon>Popup.cs</DependentUpon>
+    </Compile>
     <Compile Include="IRepository.cs" />
-    <Compile Include="Measurment.cs" />
+    <Compile Include="Measurement.cs" />
     <Compile Include="Mérés_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +119,12 @@
     </Compile>
     <Compile Include="Main_Form.Designer.cs">
       <DependentUpon>Main_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopupCancel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopupCancel.Designer.cs">
+      <DependentUpon>PopupCancel.cs</DependentUpon>
     </Compile>
     <Compile Include="PressDetector.cs" />
     <Compile Include="Program.cs" />
@@ -127,7 +138,6 @@
     <Compile Include="SerialPortClass.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Timer.cs" />
     <EmbeddedResource Include="Eredmények.resx">
       <DependentUpon>Eredmények.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,8 +147,14 @@
     <EmbeddedResource Include="Mérés_Form.resx">
       <DependentUpon>Mérés_Form.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Popup.resx">
+      <DependentUpon>Popup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopupCancel.resx">
+      <DependentUpon>PopupCancel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <CustomToolNamespace>My.Project.S.Proper.Namespace</CustomToolNamespace>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -1101,17 +1117,15 @@
     <None Include="Resources\háttér1.png" />
     <None Include="Resources\háttér4.png" />
     <None Include="Resources\háttér6.png" />
-    <None Include="Resources\closeicon.png" />
     <Content Include="Resources\háttér2.png" />
     <None Include="Resources\háttér21.png" />
     <Content Include="Resources\háttér3.png" />
     <Content Include="Resources\InputSignal_131990196899752877.txt" />
     <Content Include="Resources\InputSignal_131990410350130971.txt" />
-    <None Include="Resources\logocprfeedbacker1.png" />
     <None Include="Resources\jelzohatter.png" />
-    <None Include="Resources\Névtelen-1.jpg" />
-    <None Include="Resources\logocprfeedbacker.png" />
-    <Content Include="Resources\Névtelen-1.png" />
+    <None Include="Resources\letter-x.png" />
+    <None Include="Resources\letter-x1.png" />
+    <None Include="Resources\logo.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

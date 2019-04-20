@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -10,6 +11,7 @@ namespace CPRFeedbackER {
     public partial class CPRFeedbackER : Form {
         private readonly SerialPortClass cprPort;
         private TimeSpan elapsedTime = new TimeSpan();
+        private Boolean stopButtonWasClicked = false;
 
         // Az Arduino ADC convertere miatt az analóg jelet 0-1023 közötti intekké alakítja, ez jön be
         public List<int> inputSignal = new List<int>();
@@ -29,34 +31,54 @@ namespace CPRFeedbackER {
             gauge1.Uses360Mode = true;
             gauge1.From = 0;
             gauge1.To = 150;
-            gauge1.InnerRadius = 0;
+            gauge1.InnerRadius = 1;
             gauge1.HighFontSize = 60;
             gauge1.Value = 0;
             gauge1.GaugeBackground = new SolidColorBrush(Color.FromRgb(251, 255, 240));
-
+            gauge1.Base.GaugeActiveFill = new LinearGradientBrush {
+                GradientStops = new GradientStopCollection
+                {
+                    new GradientStop(Colors.Red, 0),
+                    new GradientStop(Colors.Orange, .5),
+                    new GradientStop(Colors.Green, 1),
+                    new GradientStop(Colors.Red,1.5)
+                }
+            };
             // Gauge 2 AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
-            depthGauge.Value = 0;
-            depthGauge.FromValue = 0;
-            depthGauge.ToValue = 1000;
-            depthGauge.TicksForeground = Brushes.OrangeRed;
-            depthGauge.Base.Foreground = Brushes.White;
-            depthGauge.Base.FontSize = 30;
             depthGauge.NeedleFill = Brushes.Black;
             depthGauge.AnimationsSpeed = (TimeSpan.FromTicks(0));
-            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection {
+            this.depthGauge.Sections.Add(new AngularSection {
                 FromValue = 0,
-                ToValue = 400,
-                Fill = new SolidColorBrush(Color.FromRgb(66, 134, 244))
+                ToValue = 500,
+                Fill = new LinearGradientBrush {
+                    GradientStops = new GradientStopCollection {
+                        new GradientStop(Colors.LightBlue, 0),
+                        new GradientStop(Colors.Blue, 0.5),
+                        new GradientStop(Colors.CadetBlue, 1),
+                    }
+                }
             });
-            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection {
-                FromValue = 400,
-                ToValue = 600,
-                Fill = new SolidColorBrush(Color.FromRgb(0, 204, 0))
+            this.depthGauge.Sections.Add(new AngularSection {
+                FromValue = 500,
+                ToValue = 800,
+                Fill = new LinearGradientBrush {
+                    GradientStops = new GradientStopCollection {
+                        new GradientStop(Colors.Green, 0),
+                        new GradientStop(Colors.ForestGreen, 0.5),
+                        new GradientStop(Colors.GreenYellow, 1),
+                    }
+                }
             });
-            depthGauge.Sections.Add(new LiveCharts.Wpf.AngularSection {
-                FromValue = 600,
+            this.depthGauge.Sections.Add(new AngularSection {
+                FromValue = 800,
                 ToValue = 1000,
-                Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0))
+                Fill = new LinearGradientBrush {
+                    GradientStops = new GradientStopCollection {
+                        new GradientStop(Colors.IndianRed, 0),
+                        new GradientStop(Colors.Tomato, 0.5),
+                        new GradientStop(Colors.DarkRed, 1),
+                    }
+                }
             });
         }
 
@@ -71,9 +93,7 @@ namespace CPRFeedbackER {
 
         public void labelUpdater() {
             if (!InvokeRequired) {
-                // FUT EGY TIMER A UI-ON
                 elapsedTime = DateTime.Now - startTime;
-
                 TimeSpan timeLeft = oneMin - elapsedTime;
                 timer_lbl.Text = timeLeft.ToString(@"ss") + " mp";
             } else
@@ -144,24 +164,41 @@ namespace CPRFeedbackER {
         // ========= LEÁLLÍTÁS GOMB ===========
         private void btn_Stop_Click(object sender, EventArgs e) {
             //StopReadingThread();
+            stopButtonWasClicked = true;
             btn_Start.Enabled = true;
 
             EvaluationStart();
         }
 
+        // END OF MÉRÉS
         private void EvaluationStart() {
-            btn_Stop.Enabled = false;
             StringBuilder sb = new StringBuilder();
+
             foreach (var item in inputSignal) {
                 sb.Append(item.ToString() + ";");
             }
             var name = String.Empty;
-            if (Helper.InputBox("Új név", "Név", ref name) == DialogResult.OK && !String.IsNullOrEmpty(name)) {
-                DataBaseManager db = new DataBaseManager();
-                db.AddItem(new Measurement {
-                    Name = name,
-                    Values = sb.ToString()
-                });
+
+            using (Popup form = new Popup()) {
+                var answer = form.ShowDialog();
+
+                if (answer == DialogResult.OK) {
+                    DataBaseManager db = new DataBaseManager();
+                    db.AddItem(new Measurement {
+                        Name = form.Name,
+                        Comment = form.comment,
+                        Values = sb.ToString(),
+                        Date = DateTime.UtcNow
+                    });
+                }
+
+                if (answer == DialogResult.Retry) {
+                    // TODO KINULLÁZNI ÉS ÚJRAKEZDENI MINDENT;
+                }
+
+                if (answer == DialogResult.Abort) {
+                    Application.Exit();
+                }
             }
         }
 
@@ -172,8 +209,7 @@ namespace CPRFeedbackER {
             startTime = DateTime.Now;
 
             //cprPort.IsOpen mindig igazat fog adni TODO: ha kihúzodott az eszköz le kell állítani
-            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60) {
-                
+            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 && !stopButtonWasClicked) {
                 elapsedTime = DateTime.Now - startTime;
 
                 raw_data = cprPort.ReadLine();
@@ -189,7 +225,8 @@ namespace CPRFeedbackER {
                 labelUpdater();
             }
             //StopReadingThread();
-            EvaluationStart();
+            if (!stopButtonWasClicked)
+                EvaluationStart();
         }
     }
 }
