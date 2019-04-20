@@ -13,6 +13,6 @@ namespace CPRFeedbackER
 		public string Name { get; set; }
         public string Comment { get; set; }
 		public string Values { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 	}
 }

@@ -188,7 +188,7 @@ namespace CPRFeedbackER {
                         Name = form.Name,
                         Comment = form.comment,
                         Values = sb.ToString(),
-                        Date = DateTime.UtcNow
+                        Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
                     });
                 }
 
