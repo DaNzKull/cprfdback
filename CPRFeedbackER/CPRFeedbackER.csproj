@@ -127,7 +127,6 @@
     <Compile Include="SerialPortClass.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Timer.cs" />
     <EmbeddedResource Include="Eredmények.resx">
       <DependentUpon>Eredmények.cs</DependentUpon>
     </EmbeddedResource>
