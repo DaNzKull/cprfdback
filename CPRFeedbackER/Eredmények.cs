@@ -9,9 +9,8 @@ using System.Windows.Media;
 namespace CPRFeedbackER {
 
     public partial class Eredmények : Form {
+        private Measurement selectedDbItem;
 
-        Measurement selectedDbItem;
-        
         public Eredmények() {
             InitializeComponent();
 
@@ -54,8 +53,7 @@ namespace CPRFeedbackER {
             var dataSet = dbItem.Values;
             List<int> inputSignal = new List<int>();
 
-
-        String[] rawData = dataSet.Split(';');
+            String[] rawData = dataSet.Split(';');
 
             foreach (String dataUnit in rawData) {
                 int.TryParse(dataUnit, out convertedData);
@@ -67,7 +65,6 @@ namespace CPRFeedbackER {
         }
 
         private void elementsUpdater(PressDetector detector) {
-
             bpmGauge.Value = detector.bpmCounter;
             releaseGauge.Value = detector.goodReleaseCounter;
             idealPressGauge.Value = detector.goodPressCounter;
@@ -118,14 +115,12 @@ namespace CPRFeedbackER {
             //modifying any series values will also animate and update the chart
             cartesianChart1.Series[2].Values.Add(5d);
 
-
             cartesianChart1.DataClick += CartesianChart1OnDataClick;
         }
 
         private void CartesianChart1OnDataClick(object sender, ChartPoint chartPoint) {
             MessageBox.Show("You clicked (" + chartPoint.X + "," + chartPoint.Y + ")");
         }
-
 
         private void SetData() {
             var db = new DataBaseManager();
@@ -140,7 +135,6 @@ namespace CPRFeedbackER {
         private void btn_Open_Click(object sender, EventArgs e) {
             if (lbMeasurements.SelectedItem != null) {
                 selectedDbItem = (Measurement)lbMeasurements.SelectedItem;
-                
             }
         }
 

@@ -1,4 +1,7 @@
-﻿namespace CPRFeedbackER
+﻿using LiveCharts.Wpf;
+using System.Windows.Media;
+
+namespace CPRFeedbackER
 {
     partial class CPRFeedbackER
     {
@@ -28,9 +31,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CPRFeedbackER));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btn_Close = new System.Windows.Forms.Button();
@@ -44,9 +45,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.labelBad = new System.Windows.Forms.Label();
-            this.labelWeak = new System.Windows.Forms.Label();
             this.labelGood = new System.Windows.Forms.Label();
+            this.labelWeak = new System.Windows.Forms.Label();
+            this.labelBad = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -55,7 +56,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btn_Close);
             this.panel1.Controls.Add(this.btn_Stop);
@@ -65,14 +65,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(204, 423);
             this.panel1.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(0, 87);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(204, 1);
-            this.label5.TabIndex = 7;
             // 
             // panel2
             // 
@@ -84,11 +76,11 @@
             // 
             // panel3
             // 
-            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
+            this.panel3.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.logo;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel3.Location = new System.Drawing.Point(8, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(204, 85);
+            this.panel3.Size = new System.Drawing.Size(204, 95);
             this.panel3.TabIndex = 11;
             // 
             // btn_Close
@@ -96,9 +88,9 @@
             this.btn_Close.FlatAppearance.BorderSize = 0;
             this.btn_Close.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Close.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Close.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold);
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Close.Location = new System.Drawing.Point(3, 338);
+            this.btn_Close.Location = new System.Drawing.Point(3, 335);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(201, 85);
             this.btn_Close.TabIndex = 5;
@@ -108,12 +100,15 @@
             // 
             // btn_Stop
             // 
+            this.btn_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btn_Stop.FlatAppearance.BorderSize = 0;
             this.btn_Stop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.btn_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Stop.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Stop.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Stop.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Stop.Location = new System.Drawing.Point(0, 202);
+            this.btn_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Stop.ImageKey = "LogoMakr_9OJvEc.png";
+            this.btn_Stop.Location = new System.Drawing.Point(0, 174);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(204, 64);
             this.btn_Stop.TabIndex = 4;
@@ -123,12 +118,13 @@
             // 
             // btn_Start
             // 
+            this.btn_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_Start.FlatAppearance.BorderSize = 0;
             this.btn_Start.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.btn_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Start.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Start.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Start.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Start.Location = new System.Drawing.Point(0, 105);
+            this.btn_Start.Location = new System.Drawing.Point(0, 104);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(204, 64);
             this.btn_Start.TabIndex = 2;
@@ -141,7 +137,7 @@
             this.timer_lbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
             this.timer_lbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timer_lbl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timer_lbl.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.timer_lbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timer_lbl.ForeColor = System.Drawing.Color.White;
             this.timer_lbl.Location = new System.Drawing.Point(202, -3);
             this.timer_lbl.Name = "timer_lbl";
@@ -165,17 +161,16 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(297, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 21);
+            this.label2.Size = new System.Drawing.Size(133, 21);
             this.label2.TabIndex = 5;
             this.label2.Text = "Nyomások száma";
             // 
             // gauge1
             // 
             this.gauge1.BackColorTransparent = true;
-            //this.gauge1.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
             this.gauge1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gauge1.Location = new System.Drawing.Point(210, 84);
             this.gauge1.Name = "gauge1";
@@ -185,13 +180,21 @@
             // 
             // depthGauge
             // 
+            this.depthGauge.BackColor = System.Drawing.SystemColors.Window;
             this.depthGauge.BackColorTransparent = true;
-            //this.depthGauge.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
+            this.depthGauge.Font = new System.Drawing.Font("Segoe UI Emoji", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.depthGauge.ForeColor = System.Drawing.Color.Coral;
             this.depthGauge.Location = new System.Drawing.Point(529, 84);
             this.depthGauge.Name = "depthGauge";
             this.depthGauge.Size = new System.Drawing.Size(302, 333);
             this.depthGauge.TabIndex = 10;
-            this.depthGauge.Text = "angularGauge1";
+            this.depthGauge.LabelsStep = 100;
+            this.depthGauge.FromValue = 0;
+            this.depthGauge.ToValue = 1000;
+            this.depthGauge.TickStep = 100;
+            this.depthGauge.TicksStrokeThickness = 2;
+            this.depthGauge.SectionsInnerRadius = 0.5;
+
             // 
             // label4
             // 
@@ -205,16 +208,15 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label3.Location = new System.Drawing.Point(581, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 21);
+            this.label3.Size = new System.Drawing.Size(194, 21);
             this.label3.TabIndex = 12;
             this.label3.Text = "Aktuális nyomás mélysége";
             // 
             // panel4
             // 
-            //this.panel4.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.jelzohatter;
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel4.Controls.Add(this.labelGood);
             this.panel4.Controls.Add(this.labelWeak);
@@ -224,36 +226,11 @@
             this.panel4.Size = new System.Drawing.Size(313, 46);
             this.panel4.TabIndex = 13;
             // 
-            // labelBad
-            // 
-            this.labelBad.BackColor = System.Drawing.Color.Red;
-            this.labelBad.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelBad.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelBad.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelBad.Location = new System.Drawing.Point(0, 0);
-            this.labelBad.Name = "labelBad";
-            this.labelBad.Size = new System.Drawing.Size(108, 46);
-            this.labelBad.TabIndex = 0;
-            this.labelBad.Text = "ROSSZ";
-            this.labelBad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelWeak
-            // 
-            this.labelWeak.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.labelWeak.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelWeak.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelWeak.Location = new System.Drawing.Point(103, 0);
-            this.labelWeak.Name = "labelWeak";
-            this.labelWeak.Size = new System.Drawing.Size(106, 46);
-            this.labelWeak.TabIndex = 1;
-            this.labelWeak.Text = "GYENGE";
-            this.labelWeak.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelGood
             // 
             this.labelGood.BackColor = System.Drawing.Color.Lime;
             this.labelGood.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelGood.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelGood.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold);
             this.labelGood.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.labelGood.Location = new System.Drawing.Point(207, 0);
             this.labelGood.Name = "labelGood";
@@ -262,13 +239,37 @@
             this.labelGood.Text = "JÓ";
             this.labelGood.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelWeak
+            // 
+            this.labelWeak.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.labelWeak.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold);
+            this.labelWeak.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelWeak.Location = new System.Drawing.Point(103, 0);
+            this.labelWeak.Name = "labelWeak";
+            this.labelWeak.Size = new System.Drawing.Size(106, 46);
+            this.labelWeak.TabIndex = 1;
+            this.labelWeak.Text = "GYENGE";
+            this.labelWeak.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelBad
+            // 
+            this.labelBad.BackColor = System.Drawing.Color.Red;
+            this.labelBad.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelBad.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold);
+            this.labelBad.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelBad.Location = new System.Drawing.Point(0, 0);
+            this.labelBad.Name = "labelBad";
+            this.labelBad.Size = new System.Drawing.Size(108, 46);
+            this.labelBad.TabIndex = 0;
+            this.labelBad.Text = "ROSSZ";
+            this.labelBad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // CPRFeedbackER
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.White;
-            //this.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(834, 420);
             this.Controls.Add(this.panel4);
@@ -302,16 +303,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label timer_lbl;
 		private LiveCharts.WinForms.SolidGauge gauge1;
-		private LiveCharts.WinForms.AngularGauge depthGauge;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label labelGood;
         private System.Windows.Forms.Label labelWeak;
         private System.Windows.Forms.Label labelBad;
+        public LiveCharts.WinForms.AngularGauge depthGauge;
     }
 }
 

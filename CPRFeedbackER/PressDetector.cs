@@ -47,7 +47,6 @@ namespace CPRFeedbackER {
                 if (IsPressed(prevValue))
                     pressEvaluator(prevValue);
             }
-            lastPressedValue = lastValue;
         }
 
         public void pressEvaluator(int value) {
