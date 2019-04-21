@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace CPRFeedbackER {
 
     internal class PressDetector {
-        public static readonly int FULL_RELEASE_MIN = 0;
-        public static readonly int FULL_RELEASE_MAX = 50;
-        public static readonly int MIN_PRESS = 500;
-        public static readonly int MAX_PRESS = 1023;
-        public static readonly int GOOD_PRESS_MIN = 800;
-        public static readonly int GOOD_PRESS_MAX = 900;
+         
+        public static readonly int FULL_RELEASE_MIN = Int32.Parse(ConfigurationManager.AppSettings.Get("FULL_RELEASE_MIN"));
+        public static readonly int FULL_RELEASE_MAX = Int32.Parse(ConfigurationManager.AppSettings.Get("FULL_RELEASE_MAX"));
+        public static readonly int MIN_PRESS = Int32.Parse(ConfigurationManager.AppSettings.Get("MIN_PRESS"));
+        public static readonly int MAX_PRESS = Int32.Parse(ConfigurationManager.AppSettings.Get("MAX_PRESS"));
+        public static readonly int GOOD_PRESS_MIN = Int32.Parse(ConfigurationManager.AppSettings.Get("GOOD_PRESS_MIN"));
+        public static readonly int GOOD_PRESS_MAX = Int32.Parse(ConfigurationManager.AppSettings.Get("GOOD_PRESS_MAX"));
 
         public int cprCounter { get; set; }
         public int bpmCounter { get; set; }
@@ -45,13 +47,13 @@ namespace CPRFeedbackER {
             if (lastValue < prevValue && prevValue > prevPrevValue && IsPressed(lastValue) && prevPrevValue < prevValue) {
                 cprCounter++;
                 if (IsPressed(prevValue)) {
-                    pressEvaluator(prevValue);
+                    PressEvaluator(prevValue);
                     lastPressedValue = prevValue;
                 }
             }
         }
 
-        public void pressEvaluator(int value) {
+        public void PressEvaluator(int value) {
             if (Enumerable.Range(GOOD_PRESS_MIN, GOOD_PRESS_MAX).Contains(value)) {
                 goodPressCounter++;
                 lastPressEvaluated = "GOOD";

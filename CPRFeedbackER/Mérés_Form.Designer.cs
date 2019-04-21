@@ -97,7 +97,7 @@ namespace CPRFeedbackER
             this.btn_Close.TabIndex = 5;
             this.btn_Close.Text = "Bezárás";
             this.btn_Close.UseVisualStyleBackColor = true;
-            this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
+            this.btn_Close.Click += new System.EventHandler(this.Btn_Close_Click);
             // 
             // btn_Stop
             // 
@@ -115,7 +115,7 @@ namespace CPRFeedbackER
             this.btn_Stop.TabIndex = 4;
             this.btn_Stop.Text = "Leállítás";
             this.btn_Stop.UseVisualStyleBackColor = true;
-            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            this.btn_Stop.Click += new System.EventHandler(this.Btn_Stop_Click);
             // 
             // btn_Start
             // 
@@ -131,7 +131,7 @@ namespace CPRFeedbackER
             this.btn_Start.TabIndex = 2;
             this.btn_Start.Text = "Indítás";
             this.btn_Start.UseVisualStyleBackColor = true;
-            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
+            this.btn_Start.Click += new System.EventHandler(this.Btn_Start_Click);
             // 
             // timer_lbl
             // 

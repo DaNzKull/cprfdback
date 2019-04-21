@@ -42,7 +42,7 @@ namespace CPRFeedbackER {
                     //m_dbConnection.Close();
                     return true;
                 }
-            } catch (Exception ex) {
+            } catch (Exception ) {
                 return false;
             }
         }
@@ -145,7 +145,6 @@ namespace CPRFeedbackER {
                                     "[Values]= '{0}' " +
                                     "[Name]= '{1}' " +
                                     "WHERE Id ={2}", mes.Values, mes.Name, mes.Id);
-
                     SqlCommand command = new SqlCommand(sql, m_dbConnection);
                     command.ExecuteNonQuery();
                 }

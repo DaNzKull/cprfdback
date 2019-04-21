@@ -57,7 +57,7 @@
             this.btn_new.TabIndex = 0;
             this.btn_new.Text = "Új mérés";
             this.btn_new.UseVisualStyleBackColor = true;
-            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
+            this.btn_new.Click += new System.EventHandler(this.Btn_new_Click);
             // 
             // imageList1
             // 
@@ -89,7 +89,7 @@
             this.btn_close.TabIndex = 7;
             this.btn_close.Text = "Bezárás";
             this.btn_close.UseVisualStyleBackColor = true;
-            this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
+            this.btn_close.Click += new System.EventHandler(this.Btn_close_Click);
             // 
             // btn_Connect
             // 
@@ -103,7 +103,7 @@
             this.btn_Connect.TabIndex = 6;
             this.btn_Connect.Text = "Csatlakozás";
             this.btn_Connect.UseVisualStyleBackColor = true;
-            this.btn_Connect.Click += new System.EventHandler(this.btn_Connect_Click);
+            this.btn_Connect.Click += new System.EventHandler(this.Btn_Connect_Click);
             // 
             // cbComport
             // 
@@ -136,7 +136,7 @@
             this.btn_results.TabIndex = 6;
             this.btn_results.Text = "Eredmények";
             this.btn_results.UseVisualStyleBackColor = true;
-            this.btn_results.Click += new System.EventHandler(this.btn_results_Click);
+            this.btn_results.Click += new System.EventHandler(this.Btn_results_Click);
             // 
             // button1
             // 

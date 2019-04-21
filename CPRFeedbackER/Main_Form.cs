@@ -15,7 +15,7 @@ namespace CPRFeedbackER {
 			if (cbComport.Items.Count == 1) cbComport.SelectedIndex = 0;
         }
 
-        private void btn_Connect_Click(object sender, EventArgs e) {
+        private void Btn_Connect_Click(object sender, EventArgs e) {
             if (string.IsNullOrEmpty(cbComport.Text)) {
                 panel1.BackColor = Color.FromArgb(201, 21, 14);
                 MessageBox.Show("Válasszon egy létező COM portot!");
@@ -34,7 +34,7 @@ namespace CPRFeedbackER {
             }
         }
 
-        private void btn_new_Click(object sender, EventArgs e) {
+        private void Btn_new_Click(object sender, EventArgs e) {
             if (cprPort.IsOpen) {
                 var newForm = new CPRFeedbackER(cprPort);
                 newForm.Show();
@@ -42,12 +42,12 @@ namespace CPRFeedbackER {
                 MessageBox.Show("Előbb csatlakozni kell az eszközhöz!");
         }
 
-        private void btn_results_Click(object sender, EventArgs e) {
+        private void Btn_results_Click(object sender, EventArgs e) {
             var newForm = new Eredmények();
             newForm.Show();
         }
 
-        private void btn_close_Click(object sender, EventArgs e) {
+        private void Btn_close_Click(object sender, EventArgs e) {
             cprPort.Close();
             Application.Exit();
         }
