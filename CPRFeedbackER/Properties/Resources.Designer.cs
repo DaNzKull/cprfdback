@@ -123,6 +123,26 @@ namespace My.Project.S.Proper.Namespace {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap iconfinder_minus_remove_delete_minimize_2931142 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_minus-remove-delete-minimize_2931142", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap iconfinder_minus_remove_delete_minimize_2931142__1_ {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_minus-remove-delete-minimize_2931142 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap jelzohatter {
             get {
                 object obj = ResourceManager.GetObject("jelzohatter", resourceCulture);

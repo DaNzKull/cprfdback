@@ -27,26 +27,29 @@ namespace CPRFeedbackER {
             this.cprPort = cprPort;
             btn_Stop.Enabled = false;
 
-            // Gauge 1 NYOMÁSOK SZÁMÁT MUTATJA
-            gauge1.Uses360Mode = true;
-            gauge1.From = 0;
-            gauge1.To = 150;
-            gauge1.InnerRadius = 1;
-            gauge1.HighFontSize = 60;
-            gauge1.Value = 0;
-            gauge1.GaugeBackground = new SolidColorBrush(Color.FromRgb(251, 255, 240));
-            gauge1.Base.GaugeActiveFill = new LinearGradientBrush {
-                GradientStops = new GradientStopCollection
-                {
+            cprCountGauge.Uses360Mode = true;
+            cprCountGauge.From = 0;
+            cprCountGauge.To = 150;
+            cprCountGauge.InnerRadius = 1;
+            cprCountGauge.HighFontSize = 60;
+            cprCountGauge.Value = 0;
+            cprCountGauge.GaugeBackground = new SolidColorBrush(Color.FromRgb(251, 255, 240));
+            cprCountGauge.Base.GaugeActiveFill = new LinearGradientBrush {
+                GradientStops = new GradientStopCollection {
                     new GradientStop(Colors.Red, 0),
                     new GradientStop(Colors.Orange, .5),
                     new GradientStop(Colors.Green, 1),
-                    new GradientStop(Colors.Red,1.5)
+                    new GradientStop(Colors.Red, 1.5)
                 }
             };
-            // Gauge 2 AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
+            // Depthgauge AKTUÁLIS LENYOMÁS ÉRTÉKÉT MUTATJA
             depthGauge.NeedleFill = Brushes.Black;
-            depthGauge.AnimationsSpeed = (TimeSpan.FromTicks(0));
+            depthGauge.FromValue = PressDetector.FULL_RELEASE_MIN;
+            depthGauge.ToValue = PressDetector.MAX_PRESS;
+            depthGauge.TickStep = 100;
+            depthGauge.Base.FontSize = 15;
+            depthGauge.SectionsInnerRadius = 0.3;
+            depthGauge.TicksStrokeThickness = 2;
             this.depthGauge.Sections.Add(new AngularSection {
                 FromValue = 0,
                 ToValue = 500,
@@ -85,7 +88,7 @@ namespace CPRFeedbackER {
         // UI ELEMENT UPDATERS   // NEM LEHET ELÉRNI MÁSIK THREADBŐL ENÉLKÜL
         public void gaugeUpdater() {
             if (!InvokeRequired) {
-                gauge1.Value = pressDetector.cprCounter;
+                cprCountGauge.Value = pressDetector.cprCounter;
                 depthGauge.Value = pressDetector.lastPressedValue;
             } else
                 Invoke(new Action(gaugeUpdater));
@@ -104,7 +107,8 @@ namespace CPRFeedbackER {
             if (!InvokeRequired) {
                 // PRESSDETECTOR OSZTÁLYBAN VAN EGY METÓDUS AMI ÉRTÉKELI AZ UTOLSÓ NYOMÁST
                 // TODO: VALAHOGY A UI-ON JELEZNI A MINŐSÉGÉT
-                // EZ MOST NEM MŰKÖDIK
+                // EZ MOST NEM MŰKÖDI
+               
                 String lastPressIs = pressDetector.lastPressEvaluated;
                 switch (lastPressIs) {
                     case "GOOD":
@@ -128,10 +132,17 @@ namespace CPRFeedbackER {
             } else
                 Invoke(new Action(formBackGroundUpdater));
         }
+        public void ButtonUpdater() {
+            if (!InvokeRequired) {
+                btn_Start.Enabled = false;
+                btn_Stop.Enabled = false;
+            } else
+                Invoke(new Action(ButtonUpdater));
+        }
 
         // =========         END OF UI UPDATERS         =======
         public void StopReadingThread() {
-            if (serialReaderthread.IsAlive)
+            if (serialReaderthread.IsAlive && serialReaderthread != null)
                 serialReaderthread.Abort();
         }
 
@@ -163,7 +174,7 @@ namespace CPRFeedbackER {
 
         // ========= LEÁLLÍTÁS GOMB ===========
         private void btn_Stop_Click(object sender, EventArgs e) {
-            //StopReadingThread();
+            StopReadingThread();
             stopButtonWasClicked = true;
             btn_Start.Enabled = true;
 
@@ -172,8 +183,9 @@ namespace CPRFeedbackER {
 
         // END OF MÉRÉS
         private void EvaluationStart() {
-            StringBuilder sb = new StringBuilder();
+            ButtonUpdater();
 
+            StringBuilder sb = new StringBuilder();
             foreach (var item in inputSignal) {
                 sb.Append(item.ToString() + ";");
             }
@@ -205,10 +217,8 @@ namespace CPRFeedbackER {
         // ============     SERIALTHREAD CIKLUS         =======
         private void SerialReading() {
             var raw_data = cprPort.ReadLine();
-
             startTime = DateTime.Now;
 
-            //cprPort.IsOpen mindig igazat fog adni TODO: ha kihúzodott az eszköz le kell állítani
             while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 && !stopButtonWasClicked) {
                 elapsedTime = DateTime.Now - startTime;
 

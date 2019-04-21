@@ -12,7 +12,7 @@ namespace CPRFeedbackER {
             InitializeComponent();
             cprPort = new SerialPortClass();
             cbComport.Items.AddRange(cprPort.PortFinder());
-			if (cbComport.Items.Count > 0) cbComport.SelectedIndex = 0;
+			if (cbComport.Items.Count == 1) cbComport.SelectedIndex = 0;
         }
 
         private void btn_Connect_Click(object sender, EventArgs e) {
@@ -23,7 +23,6 @@ namespace CPRFeedbackER {
             }
 
             if (!cprPort.IsOpen && comboBoxEmpty != true) {
-                //cprPort.DataReceived += cprPort_DataReceived;
                 cprPort.PortName = cbComport.SelectedItem.ToString();
                 cprPort.Open();
             }
@@ -46,7 +45,6 @@ namespace CPRFeedbackER {
         private void btn_results_Click(object sender, EventArgs e) {
             var newForm = new Eredmények();
             newForm.Show();
-            //this.Hide();
         }
 
         private void btn_close_Click(object sender, EventArgs e) {

@@ -44,8 +44,10 @@ namespace CPRFeedbackER {
             // EZ A MOSTANI ARDUINO KÓDDAL JÓL MŰKÖDIK NINCS HAMIS ÉRZÉKELÉS
             if (lastValue < prevValue && prevValue > prevPrevValue && IsPressed(lastValue) && prevPrevValue < prevValue) {
                 cprCounter++;
-                if (IsPressed(prevValue))
+                if (IsPressed(prevValue)) {
                     pressEvaluator(prevValue);
+                    lastPressedValue = prevValue;
+                }
             }
         }
 
@@ -57,6 +59,7 @@ namespace CPRFeedbackER {
             if (Enumerable.Range(GOOD_PRESS_MAX, MAX_PRESS).Contains(value)) {
                 overPressed++;
                 lastPressEvaluated = "OVERPRESSED";
+                
             }
             if (Enumerable.Range(MIN_PRESS, GOOD_PRESS_MIN).Contains(value)) {
                 weakPressed++;

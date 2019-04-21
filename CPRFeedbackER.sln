@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRFeedbackER", "CPRFeedbackER\CPRFeedbackER.csproj", "{197D204A-CBBC-4589-8FDD-1CB115549BEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRFFeedBackTests", "CPRFFeedBackTests\CPRFFeedBackTests.csproj", "{BF2F9964-80C6-482B-9426-FC9DBA28EE1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleProject", "ConsolePRoject\ConsoleProject.csproj", "{A83AF34F-60F0-4BE1-9C70-403536ADB64D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9BE7AD5-ADDF-46D4-978B-A76A68ED18DD}"
+	ProjectSection(SolutionItems) = preProject
+		Graph1.dgml = Graph1.dgml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             this.btn_new = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_close = new System.Windows.Forms.Button();
             this.btn_Connect = new System.Windows.Forms.Button();
             this.cbComport = new System.Windows.Forms.ComboBox();
             this.btn_results = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,16 +50,21 @@
             this.btn_new.Font = new System.Drawing.Font("Segoe UI Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_new.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_new.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_new.ImageIndex = 1;
             this.btn_new.ImageList = this.imageList1;
-            this.btn_new.Location = new System.Drawing.Point(1, 12);
+            this.btn_new.Location = new System.Drawing.Point(1, -2);
             this.btn_new.Name = "btn_new";
-            this.btn_new.Size = new System.Drawing.Size(229, 199);
+            this.btn_new.Size = new System.Drawing.Size(229, 213);
             this.btn_new.TabIndex = 0;
             this.btn_new.Text = "Új mérés";
-            this.btn_new.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_new.UseVisualStyleBackColor = true;
             this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "list.png");
+            this.imageList1.Images.SetKeyName(1, "mérés.png");
             // 
             // panel1
             // 
@@ -69,7 +74,7 @@
             this.panel1.Controls.Add(this.cbComport);
             this.panel1.Location = new System.Drawing.Point(1, 211);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(470, 77);
+            this.panel1.Size = new System.Drawing.Size(470, 83);
             this.panel1.TabIndex = 1;
             // 
             // btn_close
@@ -111,7 +116,7 @@
             this.cbComport.FormattingEnabled = true;
             this.cbComport.Location = new System.Drawing.Point(53, 8);
             this.cbComport.Name = "cbComport";
-            this.cbComport.Size = new System.Drawing.Size(131, 28);
+            this.cbComport.Size = new System.Drawing.Size(125, 28);
             this.cbComport.Sorted = true;
             this.cbComport.TabIndex = 5;
             // 
@@ -124,14 +129,12 @@
             this.btn_results.Font = new System.Drawing.Font("Segoe UI Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_results.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_results.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_results.ImageKey = "list.png";
             this.btn_results.ImageList = this.imageList1;
-            this.btn_results.Location = new System.Drawing.Point(230, 12);
+            this.btn_results.Location = new System.Drawing.Point(230, -2);
             this.btn_results.Name = "btn_results";
-            this.btn_results.Size = new System.Drawing.Size(226, 201);
+            this.btn_results.Size = new System.Drawing.Size(226, 215);
             this.btn_results.TabIndex = 6;
             this.btn_results.Text = "Eredmények";
-            this.btn_results.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btn_results.UseVisualStyleBackColor = true;
             this.btn_results.Click += new System.EventHandler(this.btn_results_Click);
             // 
@@ -145,19 +148,12 @@
             this.button1.TabIndex = 7;
             this.button1.UseVisualStyleBackColor = false;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "list.png");
-            this.imageList1.Images.SetKeyName(1, "mérés.png");
-            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(456, 291);
+            this.ClientSize = new System.Drawing.Size(456, 293);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_new);

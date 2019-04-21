@@ -1,4 +1,5 @@
 ﻿using LiveCharts;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,13 @@ namespace CPRFeedbackER {
 
         public Eredmények() {
             InitializeComponent();
+
+            lbMeasurements.MultiColumn = true;
+            lbMeasurements.TabIndex = 0;
+            lbMeasurements.ColumnWidth = 85;
+            lbMeasurements.Items.AddRange(new object[] {
+                "Item 1, column 1"
+            });
 
             // BPMGAUGE
             bpmGauge.From = 0;
@@ -36,17 +44,18 @@ namespace CPRFeedbackER {
 
             idealPressGauge.Value = 100;
             idealPressGauge.Base.GaugeActiveFill = new LinearGradientBrush {
-                GradientStops = new GradientStopCollection
-                {
+                GradientStops = new GradientStopCollection {
                     new GradientStop(Colors.Yellow, 0),
                     new GradientStop(Colors.Orange, .5),
                     new GradientStop(Colors.Red, 1)
                 }
             };
-            SetData();
+
+        
+            GetData();
         }
 
-        public void resultDataProcessingCaller(Measurement dbItem) {
+        public void ResultDataProcesser(Measurement dbItem) {
             var name = dbItem.Name;
             int convertedData;
             PressDetector detector = new PressDetector();
@@ -58,71 +67,72 @@ namespace CPRFeedbackER {
             foreach (String dataUnit in rawData) {
                 int.TryParse(dataUnit, out convertedData);
                 inputSignal.Add(convertedData);
-
+               
                 detector.PeakDetector(ref inputSignal);
             }
-            elementsUpdater(detector);
+            ElementsUpdater(detector, ref inputSignal);
         }
 
-        private void elementsUpdater(PressDetector detector) {
+        private void ElementsUpdater(PressDetector detector, ref List<int> inputSignal) {
             bpmGauge.Value = detector.bpmCounter;
             releaseGauge.Value = detector.goodReleaseCounter;
             idealPressGauge.Value = detector.goodPressCounter;
 
-            cartesianChart1.Series = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> {4, 6, 5, 2, 7}
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> {6, 7, 3, 4, 6},
-                    PointGeometry = null
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> {5, 2, 8, 3},
+            //modifying the series collection will animate and update the chart
+
+            detector.BpmCalculator(60);
+            bpmGauge.Value = detector.bpmCounter;
+            releaseGauge.Value = detector.goodReleaseCounter;
+            idealPressGauge.Value = detector.goodPressCounter;
+            ///////////////////////////////////////////////////////////////////////
+            ///
+
+            ChartValues<ObservablePoint> Listpoints = new ChartValues<ObservablePoint>();
+            for (int i = 0; i < inputSignal.Count; i+=100) {
+                Listpoints.Add(new ObservablePoint {
+                    X = i,
+                    Y = inputSignal[i]
+                });
+            }
+            cartesianChart1.LegendLocation = LegendLocation.Right;
+
+            cartesianChart1.Series = new SeriesCollection {
+                new LineSeries {
+                    Title = "Mért értékek",
                     PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15
+                    PointGeometrySize = 15,
+                    Values = Listpoints,
+                    
+
                 }
             };
 
-            cartesianChart1.AxisX.Add(new Axis {
-                Title = "Month",
-                Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
-            });
-
             cartesianChart1.AxisY.Add(new Axis {
-                Title = "Sales",
-                LabelFormatter = value => value.ToString("C")
+                Sections = new SectionsCollection {
+                    new AxisSection {
+                        Value = 800,
+                        Label = "Good",
+                        Fill = new SolidColorBrush {
+                            Color = System.Windows.Media.Color.FromRgb(150,0,0),
+                            Opacity = 0.3
+                        }
+                    },
+                    new AxisSection {
+                        Value = 400,
+                        Label = "Bad"
+                    }
+                }
             });
 
-            cartesianChart1.LegendLocation = LegendLocation.Right;
-
-            //modifying the series collection will animate and update the chart
-            cartesianChart1.Series.Add(new LineSeries {
-                Values = new ChartValues<double> { 5, 3, 2, 4, 5 },
-                LineSmoothness = 0, //straight lines, 1 really smooth lines
-                PointGeometry = Geometry.Parse("m 25 70.36218 20 -28 -20 22 -8 -6 z"),
-                PointGeometrySize = 50,
-                PointForeground = Brushes.Gray
-            });
-
-            //modifying any series values will also animate and update the chart
-            cartesianChart1.Series[2].Values.Add(5d);
 
             cartesianChart1.DataClick += CartesianChart1OnDataClick;
         }
 
         private void CartesianChart1OnDataClick(object sender, ChartPoint chartPoint) {
-            MessageBox.Show("You clicked (" + chartPoint.X + "," + chartPoint.Y + ")");
+            label10.Text = ("(" + chartPoint.X + "," + chartPoint.Y + ")");
         }
 
-        private void SetData() {
+        private void GetData() {
             var db = new DataBaseManager();
             ObservableCollection<Measurement> data = db.GetAllItems();
             lbMeasurements.DataSource = data;
@@ -135,10 +145,15 @@ namespace CPRFeedbackER {
         private void btn_Open_Click(object sender, EventArgs e) {
             if (lbMeasurements.SelectedItem != null) {
                 selectedDbItem = (Measurement)lbMeasurements.SelectedItem;
+                ResultDataProcesser(selectedDbItem);
             }
         }
 
-        private void btn_X_Click(object sender, EventArgs e) {
+        private void BtnMin_Click(object sender, EventArgs e) {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Btn_X_Click_1(object sender, EventArgs e) {
             this.Close();
         }
     }

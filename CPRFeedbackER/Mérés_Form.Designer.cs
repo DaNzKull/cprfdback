@@ -40,7 +40,7 @@ namespace CPRFeedbackER
             this.timer_lbl = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.gauge1 = new LiveCharts.WinForms.SolidGauge();
+            this.cprCountGauge = new LiveCharts.WinForms.SolidGauge();
             this.depthGauge = new LiveCharts.WinForms.AngularGauge();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,9 +61,9 @@ namespace CPRFeedbackER
             this.panel1.Controls.Add(this.btn_Stop);
             this.panel1.Controls.Add(this.btn_Start);
             this.panel1.ForeColor = System.Drawing.Color.Coral;
-            this.panel1.Location = new System.Drawing.Point(0, -3);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(204, 423);
+            this.panel1.Size = new System.Drawing.Size(204, 420);
             this.panel1.TabIndex = 0;
             // 
             // panel2
@@ -71,16 +71,17 @@ namespace CPRFeedbackER
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Location = new System.Drawing.Point(-8, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(212, 84);
+            this.panel2.Size = new System.Drawing.Size(212, 110);
             this.panel2.TabIndex = 6;
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
             this.panel3.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.logo;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel3.Location = new System.Drawing.Point(8, 3);
+            this.panel3.Location = new System.Drawing.Point(3, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(204, 95);
+            this.panel3.Size = new System.Drawing.Size(209, 110);
             this.panel3.TabIndex = 11;
             // 
             // btn_Close
@@ -90,9 +91,9 @@ namespace CPRFeedbackER
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Close.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold);
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Close.Location = new System.Drawing.Point(3, 335);
+            this.btn_Close.Location = new System.Drawing.Point(3, 344);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(201, 85);
+            this.btn_Close.Size = new System.Drawing.Size(201, 76);
             this.btn_Close.TabIndex = 5;
             this.btn_Close.Text = "Bezárás";
             this.btn_Close.UseVisualStyleBackColor = true;
@@ -108,7 +109,7 @@ namespace CPRFeedbackER
             this.btn_Stop.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Stop.ImageKey = "LogoMakr_9OJvEc.png";
-            this.btn_Stop.Location = new System.Drawing.Point(0, 174);
+            this.btn_Stop.Location = new System.Drawing.Point(0, 190);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(204, 64);
             this.btn_Stop.TabIndex = 4;
@@ -124,9 +125,9 @@ namespace CPRFeedbackER
             this.btn_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Start.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Start.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Start.Location = new System.Drawing.Point(0, 104);
+            this.btn_Start.Location = new System.Drawing.Point(-5, 116);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(204, 64);
+            this.btn_Start.Size = new System.Drawing.Size(209, 68);
             this.btn_Start.TabIndex = 2;
             this.btn_Start.Text = "Indítás";
             this.btn_Start.UseVisualStyleBackColor = true;
@@ -137,7 +138,7 @@ namespace CPRFeedbackER
             this.timer_lbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
             this.timer_lbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timer_lbl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timer_lbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timer_lbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.timer_lbl.ForeColor = System.Drawing.Color.White;
             this.timer_lbl.Location = new System.Drawing.Point(202, -3);
             this.timer_lbl.Name = "timer_lbl";
@@ -162,21 +163,22 @@ namespace CPRFeedbackER
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(297, 60);
+            this.label2.Location = new System.Drawing.Point(261, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 21);
+            this.label2.Size = new System.Drawing.Size(207, 21);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Nyomások száma";
+            this.label2.Text = "Mellkaskompressziók száma";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // gauge1
+            // cprCountGauge
             // 
-            this.gauge1.BackColorTransparent = true;
-            this.gauge1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.gauge1.Location = new System.Drawing.Point(210, 84);
-            this.gauge1.Name = "gauge1";
-            this.gauge1.Size = new System.Drawing.Size(305, 333);
-            this.gauge1.TabIndex = 9;
-            this.gauge1.Text = "solidGauge1";
+            this.cprCountGauge.BackColorTransparent = true;
+            this.cprCountGauge.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cprCountGauge.Location = new System.Drawing.Point(210, 84);
+            this.cprCountGauge.Name = "cprCountGauge";
+            this.cprCountGauge.Size = new System.Drawing.Size(305, 333);
+            this.cprCountGauge.TabIndex = 9;
+            this.cprCountGauge.Text = "solidGauge1";
             // 
             // depthGauge
             // 
@@ -188,13 +190,6 @@ namespace CPRFeedbackER
             this.depthGauge.Name = "depthGauge";
             this.depthGauge.Size = new System.Drawing.Size(302, 333);
             this.depthGauge.TabIndex = 10;
-            this.depthGauge.LabelsStep = 100;
-            this.depthGauge.FromValue = 0;
-            this.depthGauge.ToValue = 1000;
-            this.depthGauge.TickStep = 100;
-            this.depthGauge.TicksStrokeThickness = 2;
-            this.depthGauge.SectionsInnerRadius = 0.5;
-
             // 
             // label4
             // 
@@ -209,11 +204,11 @@ namespace CPRFeedbackER
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label3.Location = new System.Drawing.Point(581, 60);
+            this.label3.Location = new System.Drawing.Point(592, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 21);
+            this.label3.Size = new System.Drawing.Size(184, 21);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Aktuális nyomás mélysége";
+            this.label3.Text = "Utolsó nyomás mélysége";
             // 
             // panel4
             // 
@@ -277,7 +272,7 @@ namespace CPRFeedbackER
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.depthGauge);
-            this.Controls.Add(this.gauge1);
+            this.Controls.Add(this.cprCountGauge);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.timer_lbl);
@@ -302,7 +297,7 @@ namespace CPRFeedbackER
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label timer_lbl;
-		private LiveCharts.WinForms.SolidGauge gauge1;
+		private LiveCharts.WinForms.SolidGauge cprCountGauge;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
