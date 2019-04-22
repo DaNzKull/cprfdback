@@ -115,7 +115,7 @@
             // btnMin
             // 
             this.btnMin.BackColor = System.Drawing.Color.SeaShell;
-            this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
+          //  this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
             this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGoldenrod;

@@ -25,7 +25,10 @@ namespace CPRFeedbackER {
             GetData();
             var db = new DataBaseManager();
             selectedDbItem = db.GetLastItem();
-            ResultDataProcesser(selectedDbItem);
+			if (selectedDbItem != null)
+			{
+				ResultDataProcesser(selectedDbItem);
+			}
 
         }
 

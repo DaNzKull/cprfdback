@@ -112,7 +112,7 @@
             // btn_X
             // 
             this.btn_X.BackColor = System.Drawing.Color.SeaShell;
-            this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.letter_x;
+            //this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.letter_x;
             this.btn_X.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_X.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
             this.btn_X.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
@@ -127,7 +127,7 @@
             // btnMin
             // 
             this.btnMin.BackColor = System.Drawing.Color.SeaShell;
-            this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
+           // this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
             this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGoldenrod;

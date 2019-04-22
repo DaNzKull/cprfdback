@@ -1120,13 +1120,10 @@
     <Content Include="Resources\háttér2.png" />
     <None Include="Resources\háttér21.png" />
     <Content Include="Resources\háttér3.png" />
-    <None Include="Resources\iconfinder_minus-remove-delete-minimize_2931142.png" />
-    <None Include="Resources\iconfinder_minus-remove-delete-minimize_2931142 %281%29.png" />
     <Content Include="Resources\InputSignal_131990196899752877.txt" />
     <Content Include="Resources\InputSignal_131990410350130971.txt" />
     <None Include="Resources\jelzohatter.png" />
     <None Include="Resources\letter-x.png" />
-    <None Include="Resources\letter-x1.png" />
     <None Include="Resources\logo.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />

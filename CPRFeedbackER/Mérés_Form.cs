@@ -24,7 +24,7 @@ namespace CPRFeedbackER {
             this.cprPort = cprPort;
             btn_Stop.Enabled = false;
             pressDetector = new PressDetector();
-            oneMin = new TimeSpan(0, 0, 60);
+            oneMin = new TimeSpan(0, 0, 10);
             elapsedTime = new TimeSpan();
             inputSignal = new List<int>();
             startTime = new DateTime();
@@ -90,7 +90,7 @@ namespace CPRFeedbackER {
         public void ResetForm() {
             btn_Stop.Enabled = false;
             pressDetector = new PressDetector();
-            oneMin = new TimeSpan(0, 0, 60);
+            oneMin = new TimeSpan(0, 0, 10);
             elapsedTime = new TimeSpan();
             inputSignal = new List<int>();
             startTime = new DateTime();
@@ -181,10 +181,9 @@ namespace CPRFeedbackER {
                             Values = sb.ToString(),
                             Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
                         });
-                        var newForm = new Eredmények(true);
-                        newForm.Show();
-                        //ResetForm();
-                    }
+						FormValler();
+						//ResetForm();
+					}
 
                     if (answer == DialogResult.Retry) {
                         ResetForm();
@@ -196,8 +195,19 @@ namespace CPRFeedbackER {
                 }
             }
         }
+		public void FormValler()
+		{
+			if (!InvokeRequired)
+			{
+				var form = new Eredmények(true);
+				form.Show();
 
-        private void GaugesInitializer() {
+			}
+			else
+				Invoke(new Action(FormValler));
+		}
+
+		private void GaugesInitializer() {
             cprCountGauge.Uses360Mode = true;
             cprCountGauge.From = 0;
             cprCountGauge.To = 140;
@@ -270,7 +280,7 @@ namespace CPRFeedbackER {
             cprPort.ReadTimeout = 1000;
             startTime = DateTime.Now;
 
-            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 && !stopButtonWasClicked ) {
+            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 10 && !stopButtonWasClicked ) {
                 elapsedTime = DateTime.Now - startTime;
                 
                 try {
