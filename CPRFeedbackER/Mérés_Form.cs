@@ -147,7 +147,7 @@ namespace CPRFeedbackER {
 
         // END OF MÉRÉS
         private void EvaluationStart() {
-            ButtonUpdater();
+           /// ButtonUpdater();
             //StopReadingThread();
             StringBuilder sb = new StringBuilder();
             foreach (var item in inputSignal) {
@@ -181,9 +181,9 @@ namespace CPRFeedbackER {
                             Values = sb.ToString(),
                             Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
                         });
-                        ResetForm();
                         var newForm = new Eredmények(true);
                         newForm.Show();
+                        //ResetForm();
                     }
 
                     if (answer == DialogResult.Retry) {

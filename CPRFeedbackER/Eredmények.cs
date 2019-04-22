@@ -24,8 +24,7 @@ namespace CPRFeedbackER {
             GaugeInitializer();
             GetData();
             var db = new DataBaseManager();
-            ObservableCollection<Measurement> data = db.GetItemById()
-
+            selectedDbItem = db.GetLastItem();
             ResultDataProcesser(selectedDbItem);
 
         }

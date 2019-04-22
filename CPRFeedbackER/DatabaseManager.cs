@@ -130,6 +130,24 @@ namespace CPRFeedbackER {
 
             return Measurements;
         }
+        public Measurement GetLastItem() {
+            var Measurement = new Measurement();
+            using (var m_dbConnection = new SqlConnection(sqlConnectionString)) {
+                m_dbConnection.Open();
+                var sql = String.Format("SELECT MAX (Id),Values, Name FROM [dbo].[Measurements]");
+                SqlCommand command = new SqlCommand(sql, m_dbConnection);
+                var reader = command.ExecuteReader();
+                while (reader.Read()) {
+                    Measurement = new Measurement {
+                        Id = (int)reader["Id"],
+                        Values = reader["Values"].ToString(),
+                        Name = reader["Name"].ToString(),
+                    };
+                }
+            }
+            return Measurement;
+        }
+
 
         /// <summary>
         /// Egy rekord frissítése. Azonosító az Id
