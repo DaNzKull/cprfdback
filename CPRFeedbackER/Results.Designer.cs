@@ -1,6 +1,6 @@
 ﻿namespace CPRFeedbackER
 {
-    partial class Eredmények
+    partial class Results
     {
         /// <summary>
         /// Required designer variable.
@@ -46,13 +46,13 @@
             this.btn_Close = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblCommentHelper = new System.Windows.Forms.Label();
-            this.btn_X = new System.Windows.Forms.Button();
-            this.btnMin = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.txtBoxComment = new System.Windows.Forms.TextBox();
             this.txtBoxDate = new System.Windows.Forms.TextBox();
             this.txtBoxName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_X = new System.Windows.Forms.Button();
+            this.btnMin = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +93,7 @@
             this.cartesianChart1.Size = new System.Drawing.Size(915, 411);
             this.cartesianChart1.TabIndex = 5;
             this.cartesianChart1.Text = "cartesianChart1";
+
             // 
             // btn_Open
             // 
@@ -271,49 +272,6 @@
             this.lblCommentHelper.Text = "Az eredmény megnyításához válassza ki a listából, majd nyomja meg a megnyít gombo" +
     "t!";
             // 
-            // btn_X
-            // 
-            this.btn_X.BackColor = System.Drawing.Color.SeaShell;
-            this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.letter_x;
-            this.btn_X.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_X.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
-            this.btn_X.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
-            this.btn_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_X.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btn_X.Location = new System.Drawing.Point(898, 0);
-            this.btn_X.Name = "btn_X";
-            this.btn_X.Size = new System.Drawing.Size(26, 27);
-            this.btn_X.TabIndex = 61;
-            this.btn_X.UseVisualStyleBackColor = false;
-            this.btn_X.Click += new System.EventHandler(this.Btn_X_Click_1);
-            // 
-            // btnMin
-            // 
-            this.btnMin.BackColor = System.Drawing.Color.SeaShell;
-          //  this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
-            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGoldenrod;
-            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMin.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnMin.Location = new System.Drawing.Point(869, 0);
-            this.btnMin.Name = "btnMin";
-            this.btnMin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnMin.Size = new System.Drawing.Size(26, 27);
-            this.btnMin.TabIndex = 60;
-            this.btnMin.UseVisualStyleBackColor = false;
-            this.btnMin.Click += new System.EventHandler(this.BtnMin_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            this.panel3.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.logo;
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(247, 87);
-            this.panel3.TabIndex = 27;
-            // 
             // txtBoxComment
             // 
             this.txtBoxComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -360,6 +318,49 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(0, 20);
             this.label10.TabIndex = 33;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
+            this.panel3.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.logo;
+            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(247, 87);
+            this.panel3.TabIndex = 27;
+            // 
+            // btn_X
+            // 
+            this.btn_X.BackColor = System.Drawing.Color.SeaShell;
+            this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.letter_x;
+            this.btn_X.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_X.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
+            this.btn_X.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
+            this.btn_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_X.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_X.Location = new System.Drawing.Point(898, 0);
+            this.btn_X.Name = "btn_X";
+            this.btn_X.Size = new System.Drawing.Size(26, 27);
+            this.btn_X.TabIndex = 61;
+            this.btn_X.UseVisualStyleBackColor = false;
+            this.btn_X.Click += new System.EventHandler(this.Btn_X_Click_1);
+            // 
+            // btnMin
+            // 
+            this.btnMin.BackColor = System.Drawing.Color.SeaShell;
+            this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGoldenrod;
+            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMin.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnMin.Location = new System.Drawing.Point(869, 0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnMin.Size = new System.Drawing.Size(26, 27);
+            this.btnMin.TabIndex = 60;
+            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.Click += new System.EventHandler(this.BtnMin_Click);
             // 
             // Eredmények
             // 

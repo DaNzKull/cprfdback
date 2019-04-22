@@ -66,7 +66,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(174, 55);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Mentés";
+            this.btnSave.Text = "Mentés és eredmény megtekintése";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
@@ -112,7 +112,6 @@
             // btn_X
             // 
             this.btn_X.BackColor = System.Drawing.Color.SeaShell;
-            //this.btn_X.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.letter_x;
             this.btn_X.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_X.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
             this.btn_X.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
@@ -127,7 +126,6 @@
             // btnMin
             // 
             this.btnMin.BackColor = System.Drawing.Color.SeaShell;
-           // this.btnMin.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.iconfinder_minus_remove_delete_minimize_2931142__1_;
             this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGoldenrod;
@@ -146,12 +144,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
             this.BackgroundImage = global::My.Project.S.Proper.Namespace.Resources.háttér1;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(481, 251);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtBoxComment);
             this.Controls.Add(this.txtboxName);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

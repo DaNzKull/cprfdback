@@ -94,11 +94,17 @@
   <ItemGroup>
     <Compile Include="AnalyzerClass.cs" />
     <Compile Include="DatabaseManager.cs" />
-    <Compile Include="Eredmények.cs">
+    <Compile Include="ErrorPopup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Eredmények.Designer.cs">
-      <DependentUpon>Eredmények.cs</DependentUpon>
+    <Compile Include="ErrorPopup.Designer.cs">
+      <DependentUpon>ErrorPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Results.Designer.cs">
+      <DependentUpon>Results.cs</DependentUpon>
     </Compile>
     <Compile Include="Popup.cs">
       <SubType>Form</SubType>
@@ -108,17 +114,17 @@
     </Compile>
     <Compile Include="IRepository.cs" />
     <Compile Include="Measurement.cs" />
-    <Compile Include="Mérés_Form.cs">
+    <Compile Include="LiveFeedBack.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mérés_Form.Designer.cs">
-      <DependentUpon>Mérés_Form.cs</DependentUpon>
+    <Compile Include="LiveFeedBack.Designer.cs">
+      <DependentUpon>LiveFeedBack.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main_Form.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main_Form.Designer.cs">
-      <DependentUpon>Main_Form.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="PopupCancel.cs">
       <SubType>Form</SubType>
@@ -138,14 +144,17 @@
     <Compile Include="SerialPortClass.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="Eredmények.resx">
-      <DependentUpon>Eredmények.cs</DependentUpon>
+    <EmbeddedResource Include="ErrorPopup.resx">
+      <DependentUpon>ErrorPopup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main_Form.resx">
-      <DependentUpon>Main_Form.cs</DependentUpon>
+    <EmbeddedResource Include="Results.resx">
+      <DependentUpon>Results.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mérés_Form.resx">
-      <DependentUpon>Mérés_Form.cs</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveFeedBack.resx">
+      <DependentUpon>LiveFeedBack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Popup.resx">
       <DependentUpon>Popup.cs</DependentUpon>
@@ -1120,6 +1129,7 @@
     <Content Include="Resources\háttér2.png" />
     <None Include="Resources\háttér21.png" />
     <Content Include="Resources\háttér3.png" />
+    <None Include="Resources\iconfinder_minus-remove-delete-minimize_2931142 %281%291.png" />
     <Content Include="Resources\InputSignal_131990196899752877.txt" />
     <Content Include="Resources\InputSignal_131990410350130971.txt" />
     <None Include="Resources\jelzohatter.png" />

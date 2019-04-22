@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace CPRFeedbackER {
 
-    public partial class Main_Form : Form {
+    public partial class Main : Form {
         private SerialPortClass cprPort;
         private Boolean comboBoxEmpty;
 
-        public Main_Form() {
+        public Main() {
             InitializeComponent();
             cprPort = new SerialPortClass();
             cbComport.Items.AddRange(cprPort.PortFinder());
@@ -43,7 +43,7 @@ namespace CPRFeedbackER {
         }
 
         private void Btn_results_Click(object sender, EventArgs e) {
-            var newForm = new Eredmények();
+            var newForm = new Results();
             newForm.Show();
         }
 

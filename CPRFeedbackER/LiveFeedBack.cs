@@ -13,10 +13,11 @@ namespace CPRFeedbackER {
         private readonly SerialPortClass cprPort;
         private TimeSpan elapsedTime;
         private TimeSpan oneMin;
-        private PressDetector pressDetector; 
+        private PressDetector pressDetector;
         private Thread serialReaderthread;
         private DateTime startTime;
         private Boolean stopButtonWasClicked;
+        private Boolean userWantsToSeeResult;
         private int value;
 
         public CPRFeedbackER(SerialPortClass cprPort) {
@@ -44,7 +45,6 @@ namespace CPRFeedbackER {
 
         public void QualityIndicatorUpdater() {
             if (!InvokeRequired) {
-
                 String lastPressIs = pressDetector.LastPressEvaluated;
                 switch (lastPressIs) {
                     case "GOOD":
@@ -85,8 +85,8 @@ namespace CPRFeedbackER {
             } else
                 Invoke(new Action(TimerLabelUpdater));
         }
-        // =========         END OF UI UPDATERS         =======
 
+        // =========         END OF UI UPDATERS         =======
         public void ResetForm() {
             btn_Stop.Enabled = false;
             pressDetector = new PressDetector();
@@ -95,6 +95,7 @@ namespace CPRFeedbackER {
             inputSignal = new List<int>();
             startTime = new DateTime();
             stopButtonWasClicked = false;
+            userWantsToSeeResult = false;
 
             timer_lbl.Text = "60 másodperc";
             labelGood.Visible = true;
@@ -141,13 +142,13 @@ namespace CPRFeedbackER {
         private void Btn_Stop_Click(object sender, EventArgs e) {
             stopButtonWasClicked = true;
             btn_Start.Enabled = true;
-            
-            EvaluationStart();
         }
 
-        // END OF MÉRÉS
+        /// <summary>
+        /// Mérési folyamat vége után ide kerül
+        /// </summary>
         private void EvaluationStart() {
-           /// ButtonUpdater();
+            ButtonUpdater();
             //StopReadingThread();
             StringBuilder sb = new StringBuilder();
             foreach (var item in inputSignal) {
@@ -156,20 +157,17 @@ namespace CPRFeedbackER {
             var name = String.Empty;
 
             if (stopButtonWasClicked) {
-                using (Popup form = new Popup(true)) {
+                using (ErrorPopup form = new ErrorPopup()) {
                     var answer = form.ShowDialog();
-
-                    if (answer == DialogResult.Retry) {
+                    if (answer == DialogResult.OK) {
                         ResetForm();
+                        btn_Start.Enabled = true;
                         return;
-                    }
-                    if (answer == DialogResult.Abort) {
+                    } else {
                         Application.Exit();
                     }
                 }
-                
-            }
-            if (!stopButtonWasClicked) {
+            } else {
                 using (Popup form = new Popup()) {
                     var answer = form.ShowDialog();
 
@@ -181,33 +179,35 @@ namespace CPRFeedbackER {
                             Values = sb.ToString(),
                             Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
                         });
-						FormValler();
-						//ResetForm();
-					}
-
+                        userWantsToSeeResult = true;
+                       
+                    }
                     if (answer == DialogResult.Retry) {
                         ResetForm();
                     }
-
                     if (answer == DialogResult.Abort) {
                         Application.Exit();
                     }
                 }
             }
+            if (userWantsToSeeResult) {
+                FormCaller();
+                ResetForm();
+            }
         }
-		public void FormValler()
-		{
-			if (!InvokeRequired)
-			{
-				var form = new Eredmények(true);
-				form.Show();
 
-			}
-			else
-				Invoke(new Action(FormValler));
-		}
+        public void FormCaller() {
+            if (!InvokeRequired) {
+                var form = new Results(true);
+                form.Show();
+            } else
+                Invoke(new Action(FormCaller));
+        }
 
-		private void GaugesInitializer() {
+        /// <summary>
+        /// Beállítja a Gaugeokat
+        /// </summary>
+        private void GaugesInitializer() {
             cprCountGauge.Uses360Mode = true;
             cprCountGauge.From = 0;
             cprCountGauge.To = 140;
@@ -280,9 +280,8 @@ namespace CPRFeedbackER {
             cprPort.ReadTimeout = 1000;
             startTime = DateTime.Now;
 
-            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 10 && !stopButtonWasClicked ) {
+            while (cprPort.IsOpen && elapsedTime <= oneMin && !stopButtonWasClicked) {
                 elapsedTime = DateTime.Now - startTime;
-                
                 try {
                     raw_data = cprPort.ReadLine();
                     raw_data = raw_data.Trim();
@@ -290,16 +289,21 @@ namespace CPRFeedbackER {
                     MessageBox.Show("Probléma történt az Arduino olvasása során");
                     serialReaderthread.Abort();
                 }
-
                 int.TryParse(raw_data, out value);
                 inputSignal.Add(value);
-                pressDetector.PeakDetector(ref inputSignal);
 
+                if (pressDetector.isPressed) {
+                    pressDetector.ReleaseDetector(ref inputSignal);
+                } else {
+                    pressDetector.PeakDetector(ref inputSignal);
+                }
                 GaugeUpdater();
                 QualityIndicatorUpdater();
                 TimerLabelUpdater();
-               
             }
+            if (stopButtonWasClicked)
+                return;
+            else
                 EvaluationStart();
         }
     }

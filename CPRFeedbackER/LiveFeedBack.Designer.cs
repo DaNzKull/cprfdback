@@ -91,9 +91,9 @@ namespace CPRFeedbackER
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Close.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold);
             this.btn_Close.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Close.Location = new System.Drawing.Point(3, 344);
+            this.btn_Close.Location = new System.Drawing.Point(-8, 344);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(201, 76);
+            this.btn_Close.Size = new System.Drawing.Size(212, 76);
             this.btn_Close.TabIndex = 5;
             this.btn_Close.Text = "Bezárás";
             this.btn_Close.UseVisualStyleBackColor = true;
@@ -109,9 +109,9 @@ namespace CPRFeedbackER
             this.btn_Stop.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Stop.ImageKey = "LogoMakr_9OJvEc.png";
-            this.btn_Stop.Location = new System.Drawing.Point(0, 190);
+            this.btn_Stop.Location = new System.Drawing.Point(-8, 190);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(204, 64);
+            this.btn_Stop.Size = new System.Drawing.Size(212, 64);
             this.btn_Stop.TabIndex = 4;
             this.btn_Stop.Text = "Leállítás";
             this.btn_Stop.UseVisualStyleBackColor = true;
@@ -125,9 +125,9 @@ namespace CPRFeedbackER
             this.btn_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Start.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Start.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Start.Location = new System.Drawing.Point(-5, 116);
+            this.btn_Start.Location = new System.Drawing.Point(-8, 116);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(209, 68);
+            this.btn_Start.Size = new System.Drawing.Size(212, 68);
             this.btn_Start.TabIndex = 2;
             this.btn_Start.Text = "Indítás";
             this.btn_Start.UseVisualStyleBackColor = true;

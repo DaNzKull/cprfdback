@@ -16,17 +16,18 @@ namespace CPRFeedbackER {
         public int CprCounter { get; set; }
         public int BpmCounter { get; set; }
         public int GoodPressCounter { get; set; }
-        //public int GoodReleaseCounter { get; set; }
+        public int GoodReleaseCounter { get; set; }
         public int LastPressedValue { get; set; }
         public int OverPressedCounter { get; set; }
         public int WeakPressedCounter { get; set; }
         public String LastPressEvaluated { get; set; }
+        public Boolean isPressed = false;
 
         public PressDetector() {
             CprCounter = 0;
             BpmCounter = 0;
             GoodPressCounter = 0;
-            //GoodReleaseCounter = 0;
+            GoodReleaseCounter = 0;
             LastPressedValue = -1;
             OverPressedCounter = 0;
             WeakPressedCounter = 0;
@@ -41,15 +42,28 @@ namespace CPRFeedbackER {
             int prevValue = input.ElementAt(input_size - 2);
             int prevPrevValue = input.ElementAt(input_size - 3);
 
-            if (lastValue < prevValue && prevValue > prevPrevValue &&
-                IsPressed(lastValue) && prevPrevValue < prevValue) {
-                if (IsPressed(prevValue)) {
-                    CprCounter++;
-                    PressEvaluator(prevValue);
-                    LastPressedValue = prevValue;
-                }
+            if (lastValue < prevValue && prevValue > prevPrevValue && IsPressed(lastValue) && prevPrevValue < prevValue) {
+                CprCounter++;
+                PressEvaluator(prevValue);
+                LastPressedValue = prevValue;
             }
         }
+
+        public void ReleaseDetector(ref List<int> input) {
+            int input_size = input.Count();
+            if (input_size <= 4)
+                return;
+
+            int lastValue = input.ElementAt(input_size - 1);
+            int prevValue = input.ElementAt(input_size - 2);
+            int prevPrevValue = input.ElementAt(input_size - 3);
+
+            if (lastValue > prevValue && prevValue < prevPrevValue && IsRelease(lastValue) && prevPrevValue > prevValue) {
+                IsFullRelease(prevValue);
+                isPressed = false;
+            }
+        }
+
         public void PressEvaluator(int value) {
             if (Enumerable.Range(GOOD_PRESS_MIN, GOOD_PRESS_MAX).Contains(value)) {
                 GoodPressCounter++;
@@ -69,14 +83,24 @@ namespace CPRFeedbackER {
             BpmCounter = CprCounter * (60 / elapsedTime);
         }
 
-        ////private void IsFullRelease(int value) {
-            //if (Enumerable.Range(FULL_RELEASE_MIN, FULL_RELEASE_MAX).Contains(value))
-                //GoodReleaseCounter++;
-        //}
+        private void IsFullRelease(int value) {
+            if (Enumerable.Range(FULL_RELEASE_MIN, FULL_RELEASE_MAX).Contains(value))
+                GoodReleaseCounter++;
+        }
+
+        private Boolean IsRelease(int value) {
+            if (Enumerable.Range(FULL_RELEASE_MIN, MIN_PRESS).Contains(value)) {
+                isPressed = false;
+                return true;
+            }
+            return false;
+        }
 
         private Boolean IsPressed(int value) {
-            if (Enumerable.Range(MIN_PRESS, MAX_PRESS).Contains(value))
+            if (Enumerable.Range(MIN_PRESS, MAX_PRESS).Contains(value)) {
+                isPressed = true;
                 return true;
+            }
             return false;
         }
     }

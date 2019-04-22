@@ -9,17 +9,16 @@ using System.Windows.Media;
 
 namespace CPRFeedbackER {
 
-    public partial class Eredmények : Form {
+    public partial class Results : Form {
         private Measurement selectedDbItem;
 
-        public Eredmények() {
+        public Results() {
             InitializeComponent();
             GaugeInitializer();
-            
             GetData();
         }
 
-        public Eredmények(Boolean caller) {
+        public Results(Boolean caller) {
             InitializeComponent();
             GaugeInitializer();
             GetData();
@@ -29,10 +28,7 @@ namespace CPRFeedbackER {
 			{
 				ResultDataProcesser(selectedDbItem);
 			}
-
         }
-
-
 
         private void GaugeInitializer() {
             lbMeasurements.MultiColumn = true;
@@ -73,7 +69,10 @@ namespace CPRFeedbackER {
         }
 
         public void ResultDataProcesser(Measurement dbItem) {
-            var name = dbItem.Name;
+            txtBoxName.Text = dbItem.Name;
+            txtBoxDate.Text = dbItem.Date;
+            txtBoxComment.Text = dbItem.Comment;
+
             int convertedData;
             PressDetector detector = new PressDetector();
             var dataSet = dbItem.Values;
@@ -92,50 +91,46 @@ namespace CPRFeedbackER {
 
         private void ElementsUpdater(PressDetector detector, ref List<int> inputSignal) {
             bpmGauge.Value = detector.BpmCounter;
-            //releaseGauge.Value = detector.GoodReleaseCounter;
+            releaseGauge.Value = detector.GoodReleaseCounter;
             idealPressGauge.Value = detector.GoodPressCounter;
-
-            //modifying the series collection will animate and update the chart
-
             detector.BpmCalculator(60);
             bpmGauge.Value = detector.BpmCounter;
-            //releaseGauge.Value = detector.GoodReleaseCounter;
+            releaseGauge.Value = detector.GoodReleaseCounter;
             idealPressGauge.Value = detector.GoodPressCounter;
          
             ChartValues<ObservablePoint> Listpoints = new ChartValues<ObservablePoint>();
-            for (int i = 0; i < inputSignal.Count; i+=100) {
+            for (int i = 0; i < inputSignal.Count; i+=5) {
                 Listpoints.Add(new ObservablePoint {
                     X = i,
                     Y = inputSignal[i]
                 });
             }
-            cartesianChart1.LegendLocation = LegendLocation.Right;
 
-            cartesianChart1.Series = new SeriesCollection {
-                new LineSeries {
-                    Title = "Mért értékek",
-                    PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15,
-                    Values = Listpoints,
-                }
-            };
+            //cartesianChart1.Series = new SeriesCollection {
+            //    new LineSeries {
+            //        Title = "Mért értékek",
+            //        PointGeometry = DefaultGeometries.Square,
+            //        PointGeometrySize = 15,
+            //        Values = Listpoints,
+            //    }
+            //};
 
-            cartesianChart1.AxisY.Add(new Axis {
-                Sections = new SectionsCollection {
-                    new AxisSection {
-                        Value = 800,
-                        Label = "Good",
-                        Fill = new SolidColorBrush {
-                            Color = System.Windows.Media.Color.FromRgb(150,0,0),
-                            Opacity = 0.3
-                        }
-                    },
-                    new AxisSection {
-                        Value = 400,
-                        Label = "Bad"
-                    }
-                }
-            });
+            //cartesianChart1.AxisY.Add(new Axis {
+            //    Sections = new SectionsCollection {
+            //        new AxisSection {
+            //            Value = 800,
+            //            Label = "Good",
+            //            Fill = new SolidColorBrush {
+            //                Color = System.Windows.Media.Color.FromRgb(150,0,0),
+            //                Opacity = 0.8
+            //            }
+            //        },
+            //        new AxisSection {
+            //            Value = 400,
+            //            Label = "Bad"
+            //        }
+            //    }
+            //});
             cartesianChart1.DataClick += CartesianChart1OnDataClick;
         }
 
