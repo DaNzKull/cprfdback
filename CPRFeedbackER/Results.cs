@@ -11,23 +11,89 @@ namespace CPRFeedbackER {
 
     public partial class Results : Form {
         private Measurement selectedDbItem;
+        private ChartValues<ObservablePoint> listPoints;
 
         public Results() {
             InitializeComponent();
+            listPoints = new ChartValues<ObservablePoint>();
             GaugeInitializer();
             GetData();
         }
 
         public Results(Boolean caller) {
             InitializeComponent();
+            listPoints = new ChartValues<ObservablePoint>();
             GaugeInitializer();
             GetData();
             var db = new DataBaseManager();
             selectedDbItem = db.GetLastItem();
-			if (selectedDbItem != null)
-			{
-				ResultDataProcesser(selectedDbItem);
-			}
+            if (selectedDbItem != null) {
+                ResultDataProcesser(selectedDbItem);
+            }
+        }
+
+        public void ResultDataProcesser(Measurement dbItem) {
+            txtBoxName.Text = dbItem.Name;
+            txtBoxDate.Text = dbItem.Date;
+            txtBoxComment.Text = dbItem.Comment;
+            var dataSet = dbItem.Values;
+            int convertedData;
+
+            List<int> inputSignal = new List<int>();
+            PressDetector detector = new PressDetector();
+
+            String[] rawData = dataSet.Split(';');
+
+            foreach (String dataUnit in rawData) {
+                int.TryParse(dataUnit, out convertedData);
+                inputSignal.Add(convertedData);
+
+                detector.PeakDetector(ref inputSignal);
+            }
+
+            ElementsUpdater(detector, ref inputSignal);
+        }
+
+        private void btn_Open_Click(object sender, EventArgs e) {
+            cartesianChart1.Refresh();
+            cartesianChart1.Series.Clear();
+            if (lbMeasurements.SelectedItem != null) {
+                selectedDbItem = (Measurement)lbMeasurements.SelectedItem;
+                ResultDataProcesser(selectedDbItem);
+            }
+        }
+
+        private void ElementsUpdater(PressDetector detector, ref List<int> inputSignal) {
+            bpmGauge.Value = detector.BpmCounter;
+            releaseGauge.Value = detector.GoodReleaseCounter;
+            idealPressGauge.Value = detector.GoodPressCounter;
+            detector.BpmCalculator(60);
+            bpmGauge.Value = detector.BpmCounter;
+            releaseGauge.Value = detector.GoodReleaseCounter;
+            idealPressGauge.Value = detector.GoodPressCounter;
+            bool startingZeros = true;
+
+            for (int i = 0; i < inputSignal.Count; i += 5) {
+                if (inputSignal[i] != 0 && startingZeros) {
+                    startingZeros = false;
+                } else {
+                    listPoints.Add(new ObservablePoint {
+                        X = i,
+                        Y = inputSignal[i]
+                    });
+                }
+            }
+
+            cartesianChart1.Series = new SeriesCollection {
+                new LineSeries {
+                    Title = "Mért értékek",
+                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometrySize = 5,
+                    Values = listPoints
+                }
+            };
+
+            cartesianChart1.DataClick += CartesianChart1OnDataClick;
         }
 
         private void GaugeInitializer() {
@@ -67,100 +133,27 @@ namespace CPRFeedbackER {
                 }
             };
         }
-
-        public void ResultDataProcesser(Measurement dbItem) {
-            txtBoxName.Text = dbItem.Name;
-            txtBoxDate.Text = dbItem.Date;
-            txtBoxComment.Text = dbItem.Comment;
-
-            int convertedData;
-            PressDetector detector = new PressDetector();
-            var dataSet = dbItem.Values;
-            List<int> inputSignal = new List<int>();
-
-            String[] rawData = dataSet.Split(';');
-
-            foreach (String dataUnit in rawData) {
-                int.TryParse(dataUnit, out convertedData);
-                inputSignal.Add(convertedData);
-               
-                detector.PeakDetector(ref inputSignal);
-            }
-            ElementsUpdater(detector, ref inputSignal);
-        }
-
-        private void ElementsUpdater(PressDetector detector, ref List<int> inputSignal) {
-            bpmGauge.Value = detector.BpmCounter;
-            releaseGauge.Value = detector.GoodReleaseCounter;
-            idealPressGauge.Value = detector.GoodPressCounter;
-            detector.BpmCalculator(60);
-            bpmGauge.Value = detector.BpmCounter;
-            releaseGauge.Value = detector.GoodReleaseCounter;
-            idealPressGauge.Value = detector.GoodPressCounter;
-         
-            ChartValues<ObservablePoint> Listpoints = new ChartValues<ObservablePoint>();
-            for (int i = 0; i < inputSignal.Count; i+=5) {
-                Listpoints.Add(new ObservablePoint {
-                    X = i,
-                    Y = inputSignal[i]
-                });
-            }
-
-            //cartesianChart1.Series = new SeriesCollection {
-            //    new LineSeries {
-            //        Title = "Mért értékek",
-            //        PointGeometry = DefaultGeometries.Square,
-            //        PointGeometrySize = 15,
-            //        Values = Listpoints,
-            //    }
-            //};
-
-            //cartesianChart1.AxisY.Add(new Axis {
-            //    Sections = new SectionsCollection {
-            //        new AxisSection {
-            //            Value = 800,
-            //            Label = "Good",
-            //            Fill = new SolidColorBrush {
-            //                Color = System.Windows.Media.Color.FromRgb(150,0,0),
-            //                Opacity = 0.8
-            //            }
-            //        },
-            //        new AxisSection {
-            //            Value = 400,
-            //            Label = "Bad"
-            //        }
-            //    }
-            //});
-            cartesianChart1.DataClick += CartesianChart1OnDataClick;
-        }
-
-        private void CartesianChart1OnDataClick(object sender, ChartPoint chartPoint) {
-            label10.Text = ("(" + chartPoint.X + "," + chartPoint.Y + ")");
-        }
-
         private void GetData() {
             var db = new DataBaseManager();
             ObservableCollection<Measurement> data = db.GetAllItems();
             lbMeasurements.DataSource = data;
         }
 
+        private void CartesianChart1OnDataClick(object sender, ChartPoint chartPoint) {
+            label10.Text = ("(" + chartPoint.X + "," + chartPoint.Y + ")");
+        }
+
         private void btn_Close_Click(object sender, EventArgs e) {
             this.Close();
         }
 
-        private void btn_Open_Click(object sender, EventArgs e) {
-            if (lbMeasurements.SelectedItem != null) {
-                selectedDbItem = (Measurement)lbMeasurements.SelectedItem;
-                ResultDataProcesser(selectedDbItem);
-            }
+        private void Btn_X_Click_1(object sender, EventArgs e) {
+            this.Close();
         }
 
         private void BtnMin_Click(object sender, EventArgs e) {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void Btn_X_Click_1(object sender, EventArgs e) {
-            this.Close();
-        }
     }
 }

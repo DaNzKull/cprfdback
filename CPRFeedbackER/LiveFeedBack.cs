@@ -1,24 +1,28 @@
-﻿using LiveCharts.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using System.Windows.Media;
+﻿namespace CPRFeedbackER {
 
-namespace CPRFeedbackER {
+    using LiveCharts.Wpf;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using System.Windows.Media;
 
+    /// <summary>
+    /// LiveFeedBack Form
+    /// </summary>
     public partial class CPRFeedbackER : Form {
         public List<int> inputSignal;
         private readonly SerialPortClass cprPort;
         private TimeSpan elapsedTime;
         private TimeSpan oneMin;
         private PressDetector pressDetector;
-        private Thread serialReaderthread;
         private DateTime startTime;
-        private Boolean stopButtonWasClicked;
-        private Boolean userWantsToSeeResult;
+        private bool stopButtonWasClicked;
         private int value;
+
+        private CancellationTokenSource tokenSource;
 
         public CPRFeedbackER(SerialPortClass cprPort) {
             InitializeComponent();
@@ -40,12 +44,12 @@ namespace CPRFeedbackER {
                 btn_Start.Enabled = false;
                 btn_Stop.Enabled = false;
             } else
-                Invoke(new Action(ButtonUpdater));
+                Invoke(new Action(this.ButtonUpdater));
         }
 
         public void QualityIndicatorUpdater() {
             if (!InvokeRequired) {
-                String lastPressIs = pressDetector.LastPressEvaluated;
+                string lastPressIs = pressDetector.LastPressEvaluated;
                 switch (lastPressIs) {
                     case "GOOD":
                         labelGood.Visible = true;
@@ -89,13 +93,11 @@ namespace CPRFeedbackER {
         // =========         END OF UI UPDATERS         =======
         public void ResetForm() {
             btn_Stop.Enabled = false;
-            pressDetector = new PressDetector();
             oneMin = new TimeSpan(0, 0, 10);
             elapsedTime = new TimeSpan();
             inputSignal = new List<int>();
             startTime = new DateTime();
             stopButtonWasClicked = false;
-            userWantsToSeeResult = false;
 
             timer_lbl.Text = "60 másodperc";
             labelGood.Visible = true;
@@ -107,16 +109,10 @@ namespace CPRFeedbackER {
             GaugesInitializer();
         }
 
-        public void StopReadingThread() {
-            if (serialReaderthread.IsAlive)
-                serialReaderthread.Abort();
-        }
-
         // ========= BEZÁRÁS GOMB ===========
         private void Btn_Close_Click(object sender, EventArgs e) {
-            //cprPort.Close();
-            if (serialReaderthread != null && serialReaderthread.IsAlive)
-                serialReaderthread.Abort();
+            cprPort.Close();
+            cancelTask();
             this.Close();
         }
 
@@ -130,78 +126,67 @@ namespace CPRFeedbackER {
             } catch (Exception ex) {
                 MessageBox.Show("Hiba a porttal kapcsolatban! " + ex.Message, "Error!");
             }
-            try {
-                serialReaderthread = new Thread(SerialReading);
-                serialReaderthread.Start();
-            } catch (Exception ex) {
-                MessageBox.Show("Szálkezelési hiba: " + ex.Message);
-            }
+            startTime = DateTime.Now;
+            SerialReading();
         }
 
-        // ========= LEÁLLÍTÁS GOMB ===========
+        /// <summary>
+        /// Beállítja a Gaugeokat
+        /// </summary>
         private void Btn_Stop_Click(object sender, EventArgs e) {
             stopButtonWasClicked = true;
-            btn_Start.Enabled = true;
+            cancelTask();
+            using (ErrorPopup form = new ErrorPopup()) {
+                var answer = form.ShowDialog();
+                if (answer == DialogResult.OK) {
+                    ResetForm();
+                    btn_Start.Enabled = true;
+                    return;
+                } else {
+                    Application.Exit();
+                }
+            }
         }
 
         /// <summary>
         /// Mérési folyamat vége után ide kerül
         /// </summary>
         private void EvaluationStart() {
-            ButtonUpdater();
-            //StopReadingThread();
             StringBuilder sb = new StringBuilder();
             foreach (var item in inputSignal) {
                 sb.Append(item.ToString() + ";");
             }
-            var name = String.Empty;
+            var name = string.Empty;
 
-            if (stopButtonWasClicked) {
-                using (ErrorPopup form = new ErrorPopup()) {
-                    var answer = form.ShowDialog();
-                    if (answer == DialogResult.OK) {
-                        ResetForm();
-                        btn_Start.Enabled = true;
-                        return;
-                    } else {
-                        Application.Exit();
-                    }
-                }
-            } else {
-                using (Popup form = new Popup()) {
-                    var answer = form.ShowDialog();
+            using (Popup form = new Popup()) {
+                var answer = form.ShowDialog();
 
-                    if (answer == DialogResult.OK) {
-                        DataBaseManager db = new DataBaseManager();
-                        db.AddItem(new Measurement {
-                            Name = form.name,
-                            Comment = form.comment,
-                            Values = sb.ToString(),
-                            Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
-                        });
-                        userWantsToSeeResult = true;
-                       
-                    }
-                    if (answer == DialogResult.Retry) {
-                        ResetForm();
-                    }
-                    if (answer == DialogResult.Abort) {
-                        Application.Exit();
-                    }
+                if (answer == DialogResult.OK) {
+                    DataBaseManager db = new DataBaseManager();
+                    db.AddItem(new Measurement {
+                        Name = form.name,
+                        Comment = form.comment,
+                        Values = sb.ToString(),
+                        Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
+                    });
+                    ResetForm();
+                    FormCaller();
                 }
-            }
-            if (userWantsToSeeResult) {
-                FormCaller();
-                ResetForm();
+                if (answer == DialogResult.Retry) {
+                    ResetForm();
+                }
+                if (answer == DialogResult.Abort) {
+                    Application.Exit();
+                }
             }
         }
 
+        /// <summary>
+        /// Meghívja az Eredmény Formot
+        /// </summary>
         public void FormCaller() {
-            if (!InvokeRequired) {
                 var form = new Results(true);
                 form.Show();
-            } else
-                Invoke(new Action(FormCaller));
         }
 
         /// <summary>
@@ -275,36 +260,45 @@ namespace CPRFeedbackER {
         }
 
         // ============     SERIALTHREAD CIKLUS         =======
-        private void SerialReading() {
-            var raw_data = cprPort.ReadLine();
-            cprPort.ReadTimeout = 1000;
-            startTime = DateTime.Now;
+        private async void SerialReading() {
+            try {
+                tokenSource = new CancellationTokenSource();
+                CancellationToken token = tokenSource.Token;
+                await Task.Run(() => {
+                    var raw_data = cprPort.ReadLine();
+                    cprPort.ReadTimeout = 1000;
+                    pressDetector = new PressDetector();
 
-            while (cprPort.IsOpen && elapsedTime <= oneMin && !stopButtonWasClicked) {
-                elapsedTime = DateTime.Now - startTime;
-                try {
-                    raw_data = cprPort.ReadLine();
-                    raw_data = raw_data.Trim();
-                } catch (TimeoutException) {
-                    MessageBox.Show("Probléma történt az Arduino olvasása során");
-                    serialReaderthread.Abort();
-                }
-                int.TryParse(raw_data, out value);
-                inputSignal.Add(value);
+                    while (cprPort.IsOpen && elapsedTime <= oneMin && !token.IsCancellationRequested && !stopButtonWasClicked) {
+                        elapsedTime = DateTime.Now - startTime;
+                        try {
+                            raw_data = cprPort.ReadLine();
+                            raw_data = raw_data.Trim();
+                        } catch (TimeoutException) {
+                            MessageBox.Show("Probléma történt az Arduino olvasása során");
+                        }
+                        int.TryParse(raw_data, out value);
+                        inputSignal.Add(value);
 
-                if (pressDetector.isPressed) {
-                    pressDetector.ReleaseDetector(ref inputSignal);
-                } else {
-                    pressDetector.PeakDetector(ref inputSignal);
-                }
-                GaugeUpdater();
-                QualityIndicatorUpdater();
-                TimerLabelUpdater();
+                        if (pressDetector.isPressed) {
+                            pressDetector.ReleaseDetector(ref inputSignal);
+                        } else {
+                            pressDetector.PeakDetector(ref inputSignal);
+                        }
+                        GaugeUpdater();
+                        QualityIndicatorUpdater();
+                        TimerLabelUpdater();
+                    }
+                }, tokenSource.Token);
+            } catch (OperationCanceledException) {
             }
-            if (stopButtonWasClicked)
-                return;
-            else
+            if (!stopButtonWasClicked)
                 EvaluationStart();
+            return;
+        }
+
+        private void cancelTask() {
+            tokenSource.Cancel();
         }
     }
 }
