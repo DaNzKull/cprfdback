@@ -21,7 +21,7 @@ namespace CPRFeedbackER {
         }
 
         private void BtnNewMes_Click(object sender, EventArgs e) {
-            this.DialogResult = DialogResult.Retry;
+            this.DialogResult = DialogResult.OK;
             this.Close();
             
         }

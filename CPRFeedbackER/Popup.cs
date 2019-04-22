@@ -8,6 +8,11 @@ namespace CPRFeedbackER {
         public Popup() {
             InitializeComponent();
         }
+        public Popup(Boolean stopped) {
+            InitializeComponent();
+            
+            btnCancel.PerformClick();
+        }
 
         public string name {
             get { return txtboxName.Text; }

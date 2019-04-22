@@ -14,7 +14,25 @@ namespace CPRFeedbackER {
 
         public Eredmények() {
             InitializeComponent();
+            GaugeInitializer();
+            
+            GetData();
+        }
 
+        public Eredmények(Boolean caller) {
+            InitializeComponent();
+            GaugeInitializer();
+            GetData();
+            var db = new DataBaseManager();
+            ObservableCollection<Measurement> data = db.GetItemById()
+
+            ResultDataProcesser(selectedDbItem);
+
+        }
+
+
+
+        private void GaugeInitializer() {
             lbMeasurements.MultiColumn = true;
             lbMeasurements.TabIndex = 0;
             lbMeasurements.ColumnWidth = 85;
@@ -50,9 +68,6 @@ namespace CPRFeedbackER {
                     new GradientStop(Colors.Red, 1)
                 }
             };
-
-        
-            GetData();
         }
 
         public void ResultDataProcesser(Measurement dbItem) {
@@ -74,19 +89,17 @@ namespace CPRFeedbackER {
         }
 
         private void ElementsUpdater(PressDetector detector, ref List<int> inputSignal) {
-            bpmGauge.Value = detector.bpmCounter;
-            releaseGauge.Value = detector.goodReleaseCounter;
-            idealPressGauge.Value = detector.goodPressCounter;
+            bpmGauge.Value = detector.BpmCounter;
+            //releaseGauge.Value = detector.GoodReleaseCounter;
+            idealPressGauge.Value = detector.GoodPressCounter;
 
             //modifying the series collection will animate and update the chart
 
             detector.BpmCalculator(60);
-            bpmGauge.Value = detector.bpmCounter;
-            releaseGauge.Value = detector.goodReleaseCounter;
-            idealPressGauge.Value = detector.goodPressCounter;
-            ///////////////////////////////////////////////////////////////////////
-            ///
-
+            bpmGauge.Value = detector.BpmCounter;
+            //releaseGauge.Value = detector.GoodReleaseCounter;
+            idealPressGauge.Value = detector.GoodPressCounter;
+         
             ChartValues<ObservablePoint> Listpoints = new ChartValues<ObservablePoint>();
             for (int i = 0; i < inputSignal.Count; i+=100) {
                 Listpoints.Add(new ObservablePoint {
@@ -102,8 +115,6 @@ namespace CPRFeedbackER {
                     PointGeometry = DefaultGeometries.Square,
                     PointGeometrySize = 15,
                     Values = Listpoints,
-                    
-
                 }
             };
 
@@ -123,8 +134,6 @@ namespace CPRFeedbackER {
                     }
                 }
             });
-
-
             cartesianChart1.DataClick += CartesianChart1OnDataClick;
         }
 

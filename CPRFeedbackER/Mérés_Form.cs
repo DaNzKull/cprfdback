@@ -9,20 +9,26 @@ using System.Windows.Media;
 namespace CPRFeedbackER {
 
     public partial class CPRFeedbackER : Form {
-        public List<int> inputSignal = new List<int>();
+        public List<int> inputSignal;
         private readonly SerialPortClass cprPort;
-        private TimeSpan elapsedTime = new TimeSpan();
-        private TimeSpan oneMin = new TimeSpan(0, 0, 60);
-        private PressDetector pressDetector = new PressDetector();
+        private TimeSpan elapsedTime;
+        private TimeSpan oneMin;
+        private PressDetector pressDetector; 
         private Thread serialReaderthread;
-        private DateTime startTime = new DateTime();
-        private Boolean stopButtonWasClicked = false;
+        private DateTime startTime;
+        private Boolean stopButtonWasClicked;
         private int value;
 
         public CPRFeedbackER(SerialPortClass cprPort) {
             InitializeComponent();
             this.cprPort = cprPort;
             btn_Stop.Enabled = false;
+            pressDetector = new PressDetector();
+            oneMin = new TimeSpan(0, 0, 60);
+            elapsedTime = new TimeSpan();
+            inputSignal = new List<int>();
+            startTime = new DateTime();
+            stopButtonWasClicked = false;
 
             GaugesInitializer();
         }
@@ -36,10 +42,10 @@ namespace CPRFeedbackER {
                 Invoke(new Action(ButtonUpdater));
         }
 
-        public void FormBackGroundUpdater() {
+        public void QualityIndicatorUpdater() {
             if (!InvokeRequired) {
 
-                String lastPressIs = pressDetector.lastPressEvaluated;
+                String lastPressIs = pressDetector.LastPressEvaluated;
                 switch (lastPressIs) {
                     case "GOOD":
                         labelGood.Visible = true;
@@ -60,31 +66,48 @@ namespace CPRFeedbackER {
                         break;
                 }
             } else
-                Invoke(new Action(FormBackGroundUpdater));
+                Invoke(new Action(QualityIndicatorUpdater));
         }
-
 
         public void GaugeUpdater() {
             if (!InvokeRequired) {
-                cprCountGauge.Value = pressDetector.cprCounter;
-                depthGauge.Value = pressDetector.lastPressedValue;
+                cprCountGauge.Value = pressDetector.CprCounter;
+                depthGauge.Value = pressDetector.LastPressedValue;
             } else
                 Invoke(new Action(GaugeUpdater));
         }
 
-        public void LabelUpdater() {
+        public void TimerLabelUpdater() {
             if (!InvokeRequired) {
                 elapsedTime = DateTime.Now - startTime;
                 TimeSpan timeLeft = oneMin - elapsedTime;
                 timer_lbl.Text = timeLeft.ToString(@"ss") + " mp";
             } else
-                Invoke(new Action(LabelUpdater));
+                Invoke(new Action(TimerLabelUpdater));
         }
         // =========         END OF UI UPDATERS         =======
 
+        public void ResetForm() {
+            btn_Stop.Enabled = false;
+            pressDetector = new PressDetector();
+            oneMin = new TimeSpan(0, 0, 60);
+            elapsedTime = new TimeSpan();
+            inputSignal = new List<int>();
+            startTime = new DateTime();
+            stopButtonWasClicked = false;
+
+            timer_lbl.Text = "60 másodperc";
+            labelGood.Visible = true;
+            labelBad.Visible = true;
+            labelWeak.Visible = true;
+            btn_Start.Enabled = true;
+            btn_Stop.Enabled = false;
+
+            GaugesInitializer();
+        }
 
         public void StopReadingThread() {
-            if (serialReaderthread.IsAlive && serialReaderthread != null)
+            if (serialReaderthread.IsAlive)
                 serialReaderthread.Abort();
         }
 
@@ -116,42 +139,60 @@ namespace CPRFeedbackER {
 
         // ========= LEÁLLÍTÁS GOMB ===========
         private void Btn_Stop_Click(object sender, EventArgs e) {
-            StopReadingThread();
             stopButtonWasClicked = true;
             btn_Start.Enabled = true;
-
+            
             EvaluationStart();
         }
 
         // END OF MÉRÉS
         private void EvaluationStart() {
             ButtonUpdater();
-
+            //StopReadingThread();
             StringBuilder sb = new StringBuilder();
             foreach (var item in inputSignal) {
                 sb.Append(item.ToString() + ";");
             }
             var name = String.Empty;
 
-            using (Popup form = new Popup()) {
-                var answer = form.ShowDialog();
+            if (stopButtonWasClicked) {
+                using (Popup form = new Popup(true)) {
+                    var answer = form.ShowDialog();
 
-                if (answer == DialogResult.OK) {
-                    DataBaseManager db = new DataBaseManager();
-                    db.AddItem(new Measurement {
-                        Name = form.name,
-                        Comment = form.comment,
-                        Values = sb.ToString(),
-                        Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
-                    });
+                    if (answer == DialogResult.Retry) {
+                        ResetForm();
+                        return;
+                    }
+                    if (answer == DialogResult.Abort) {
+                        Application.Exit();
+                    }
                 }
+                
+            }
+            if (!stopButtonWasClicked) {
+                using (Popup form = new Popup()) {
+                    var answer = form.ShowDialog();
 
-                if (answer == DialogResult.Retry) {
-                    // TODO KINULLÁZNI ÉS ÚJRAKEZDENI MINDENT;
-                }
+                    if (answer == DialogResult.OK) {
+                        DataBaseManager db = new DataBaseManager();
+                        db.AddItem(new Measurement {
+                            Name = form.name,
+                            Comment = form.comment,
+                            Values = sb.ToString(),
+                            Date = DateTime.Now.ToString("yyyy-MM-dd h:mm tt")
+                        });
+                        ResetForm();
+                        var newForm = new Eredmények(true);
+                        newForm.Show();
+                    }
 
-                if (answer == DialogResult.Abort) {
-                    Application.Exit();
+                    if (answer == DialogResult.Retry) {
+                        ResetForm();
+                    }
+
+                    if (answer == DialogResult.Abort) {
+                        Application.Exit();
+                    }
                 }
             }
         }
@@ -159,7 +200,7 @@ namespace CPRFeedbackER {
         private void GaugesInitializer() {
             cprCountGauge.Uses360Mode = true;
             cprCountGauge.From = 0;
-            cprCountGauge.To = 150;
+            cprCountGauge.To = 140;
             cprCountGauge.InnerRadius = 1;
             cprCountGauge.HighFontSize = 60;
             cprCountGauge.Value = 0;
@@ -172,17 +213,25 @@ namespace CPRFeedbackER {
                     new GradientStop(Colors.Red, 1.5)
                 }
             };
+            cprCountGauge.Base.GaugeRenderTransform = new TransformGroup {
+                Children = new TransformCollection
+                {
+                    new RotateTransform(90),
+                    new ScaleTransform {ScaleX = -1}
+                }
+            };
 
             depthGauge.NeedleFill = Brushes.Black;
             depthGauge.FromValue = PressDetector.FULL_RELEASE_MIN;
             depthGauge.ToValue = PressDetector.MAX_PRESS;
             depthGauge.TickStep = 100;
+            depthGauge.Value = 0;
             depthGauge.Base.FontSize = 15;
             depthGauge.SectionsInnerRadius = 0.3;
             depthGauge.TicksStrokeThickness = 2;
             this.depthGauge.Sections.Add(new AngularSection {
-                FromValue = 0,
-                ToValue = 500,
+                FromValue = PressDetector.FULL_RELEASE_MIN,
+                ToValue = PressDetector.GOOD_PRESS_MIN,
                 Fill = new LinearGradientBrush {
                     GradientStops = new GradientStopCollection {
                         new GradientStop(Colors.LightBlue, 0),
@@ -192,8 +241,8 @@ namespace CPRFeedbackER {
                 }
             });
             this.depthGauge.Sections.Add(new AngularSection {
-                FromValue = 500,
-                ToValue = 800,
+                FromValue = PressDetector.MIN_PRESS,
+                ToValue = PressDetector.GOOD_PRESS_MAX,
                 Fill = new LinearGradientBrush {
                     GradientStops = new GradientStopCollection {
                         new GradientStop(Colors.Green, 0),
@@ -203,8 +252,8 @@ namespace CPRFeedbackER {
                 }
             });
             this.depthGauge.Sections.Add(new AngularSection {
-                FromValue = 800,
-                ToValue = 1000,
+                FromValue = PressDetector.GOOD_PRESS_MAX,
+                ToValue = PressDetector.MAX_PRESS,
                 Fill = new LinearGradientBrush {
                     GradientStops = new GradientStopCollection {
                         new GradientStop(Colors.IndianRed, 0),
@@ -221,9 +270,9 @@ namespace CPRFeedbackER {
             cprPort.ReadTimeout = 1000;
             startTime = DateTime.Now;
 
-            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 && !stopButtonWasClicked) {
+            while (cprPort.IsOpen && elapsedTime.TotalSeconds <= 60 && !stopButtonWasClicked ) {
                 elapsedTime = DateTime.Now - startTime;
-
+                
                 try {
                     raw_data = cprPort.ReadLine();
                     raw_data = raw_data.Trim();
@@ -233,16 +282,14 @@ namespace CPRFeedbackER {
                 }
 
                 int.TryParse(raw_data, out value);
-
                 inputSignal.Add(value);
                 pressDetector.PeakDetector(ref inputSignal);
 
                 GaugeUpdater();
-                FormBackGroundUpdater();
-                LabelUpdater();
+                QualityIndicatorUpdater();
+                TimerLabelUpdater();
+               
             }
-
-            if (!stopButtonWasClicked)
                 EvaluationStart();
         }
     }
